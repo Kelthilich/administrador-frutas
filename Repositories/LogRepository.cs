@@ -1,0 +1,493 @@
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using frutas.Models;
+using frutas.DTOs;
+
+namespace frutas.Repositories
+{
+    /// <summary>
+    /// Implementación del repositorio de logs
+    /// Proporciona acceso a datos específico para auditoría del sistema
+    /// </summary>
+    public class LogRepository : ILogRepository
+    {
+        private readonly string _connectionString;
+
+        public LogRepository()
+        {
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        }
+
+        #region Mapeo de datos
+
+        private Log MapearDesdeReader(SqlDataReader reader)
+        {
+            return new Log
+            {
+                Id = (int)reader["Id"],
+                UsuarioId = reader["UsuarioId"] as int?,
+                Username = reader["Username"]?.ToString(),
+                Accion = reader["Accion"].ToString(),
+                Tabla = reader["Tabla"].ToString(),
+                RegistroId = reader["RegistroId"] as int?,
+                DetalleAntes = reader["DetalleAntes"]?.ToString(),
+                DetalleDepues = reader["DetalleDepues"]?.ToString(),
+                Fecha = (DateTime)reader["Fecha"],
+                IP = reader["IP"]?.ToString(),
+                UserAgent = reader["UserAgent"]?.ToString(),
+                Endpoint = reader["Endpoint"]?.ToString(),
+                MetodoHttp = reader["MetodoHttp"]?.ToString(),
+                TiempoEjecucion = reader["TiempoEjecucion"] as long?,
+                Exitoso = (bool)reader["Exitoso"],
+                MensajeError = reader["MensajeError"]?.ToString(),
+                Severidad = reader["Severidad"].ToString()
+            };
+        }
+
+        private SqlParameter[] ObtenerParametrosInsertar(Log log)
+        {
+            return new[]
+            {
+                new SqlParameter("@UsuarioId", log.UsuarioId ?? (object)DBNull.Value),
+                new SqlParameter("@Username", log.Username ?? (object)DBNull.Value),
+                new SqlParameter("@Accion", log.Accion),
+                new SqlParameter("@Tabla", log.Tabla),
+                new SqlParameter("@RegistroId", log.RegistroId ?? (object)DBNull.Value),
+                new SqlParameter("@DetalleAntes", log.DetalleAntes ?? (object)DBNull.Value),
+                new SqlParameter("@DetalleDepues", log.DetalleDepues ?? (object)DBNull.Value),
+                new SqlParameter("@Fecha", log.Fecha),
+                new SqlParameter("@IP", log.IP ?? (object)DBNull.Value),
+                new SqlParameter("@UserAgent", log.UserAgent ?? (object)DBNull.Value),
+                new SqlParameter("@Endpoint", log.Endpoint ?? (object)DBNull.Value),
+                new SqlParameter("@MetodoHttp", log.MetodoHttp ?? (object)DBNull.Value),
+                new SqlParameter("@TiempoEjecucion", log.TiempoEjecucion ?? (object)DBNull.Value),
+                new SqlParameter("@Exitoso", log.Exitoso),
+                new SqlParameter("@MensajeError", log.MensajeError ?? (object)DBNull.Value),
+                new SqlParameter("@Severidad", log.Severidad)
+            };
+        }
+
+        #endregion
+
+        #region Operaciones básicas
+
+        public Log Agregar(Log log)
+        {
+            log.Fecha = DateTime.Now;
+
+            string sql = @"
+                INSERT INTO Logs (UsuarioId, Username, Accion, Tabla, RegistroId, DetalleAntes, 
+                                DetalleDepues, Fecha, IP, UserAgent, Endpoint, MetodoHttp, 
+                                TiempoEjecucion, Exitoso, MensajeError, Severidad)
+                OUTPUT INSERTED.Id
+                VALUES (@UsuarioId, @Username, @Accion, @Tabla, @RegistroId, @DetalleAntes, 
+                        @DetalleDepues, @Fecha, @IP, @UserAgent, @Endpoint, @MetodoHttp, 
+                        @TiempoEjecucion, @Exitoso, @MensajeError, @Severidad)";
+
+            var parametros = ObtenerParametrosInsertar(log);
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddRange(parametros);
+                    var nuevoId = command.ExecuteScalar();
+                    if (nuevoId != null)
+                    {
+                        log.Id = Convert.ToInt32(nuevoId);
+                    }
+                }
+            }
+
+            return log;
+        }
+
+        public Log ObtenerPorId(int id)
+        {
+            string sql = "SELECT * FROM Logs WHERE Id = @Id";
+            
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.Add(new SqlParameter("@Id", id));
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return MapearDesdeReader(reader);
+                        }
+                    }
+                }
+            }
+            
+            return null;
+        }
+
+        public IEnumerable<Log> ObtenerTodos()
+        {
+            string sql = "SELECT * FROM Logs ORDER BY Fecha DESC";
+            return EjecutarConsulta(sql);
+        }
+
+        #endregion
+
+        #region Consultas específicas
+
+        public IEnumerable<Log> ObtenerPorUsuario(int usuarioId)
+        {
+            string sql = "SELECT * FROM Logs WHERE UsuarioId = @UsuarioId ORDER BY Fecha DESC";
+            var parametros = new[] { new SqlParameter("@UsuarioId", usuarioId) };
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        public IEnumerable<Log> ObtenerPorUsername(string username)
+        {
+            string sql = "SELECT * FROM Logs WHERE Username = @Username ORDER BY Fecha DESC";
+            var parametros = new[] { new SqlParameter("@Username", username) };
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        public IEnumerable<Log> ObtenerPorFecha(DateTime fecha)
+        {
+            string sql = "SELECT * FROM Logs WHERE CAST(Fecha as DATE) = CAST(@Fecha as DATE) ORDER BY Fecha DESC";
+            var parametros = new[] { new SqlParameter("@Fecha", fecha.Date) };
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        public IEnumerable<Log> ObtenerPorRangoFecha(DateTime fechaInicio, DateTime fechaFin)
+        {
+            string sql = "SELECT * FROM Logs WHERE Fecha BETWEEN @FechaInicio AND @FechaFin ORDER BY Fecha DESC";
+            var parametros = new[]
+            {
+                new SqlParameter("@FechaInicio", fechaInicio),
+                new SqlParameter("@FechaFin", fechaFin)
+            };
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        public IEnumerable<Log> ObtenerPorAccion(string accion)
+        {
+            string sql = "SELECT * FROM Logs WHERE Accion = @Accion ORDER BY Fecha DESC";
+            var parametros = new[] { new SqlParameter("@Accion", accion) };
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        public IEnumerable<Log> ObtenerPorTabla(string tabla)
+        {
+            string sql = "SELECT * FROM Logs WHERE Tabla = @Tabla ORDER BY Fecha DESC";
+            var parametros = new[] { new SqlParameter("@Tabla", tabla) };
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        public IEnumerable<Log> ObtenerPorSeveridad(string severidad)
+        {
+            string sql = "SELECT * FROM Logs WHERE Severidad = @Severidad ORDER BY Fecha DESC";
+            var parametros = new[] { new SqlParameter("@Severidad", severidad) };
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        public IEnumerable<Log> ObtenerErrores()
+        {
+            string sql = "SELECT * FROM Logs WHERE Severidad IN ('ERROR', 'CRITICAL') OR Exitoso = 0 ORDER BY Fecha DESC";
+            return EjecutarConsulta(sql);
+        }
+
+        public IEnumerable<Log> ObtenerPorIP(string ip)
+        {
+            string sql = "SELECT * FROM Logs WHERE IP = @IP ORDER BY Fecha DESC";
+            var parametros = new[] { new SqlParameter("@IP", ip) };
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        #endregion
+
+        #region Paginación
+
+        public IEnumerable<Log> ObtenerPaginado(int pagina, int tamañoPagina)
+        {
+            int offset = (pagina - 1) * tamañoPagina;
+            string sql = @"
+                SELECT * FROM Logs 
+                ORDER BY Fecha DESC 
+                OFFSET @Offset ROWS 
+                FETCH NEXT @TamañoPagina ROWS ONLY";
+
+            var parametros = new[]
+            {
+                new SqlParameter("@Offset", offset),
+                new SqlParameter("@TamañoPagina", tamañoPagina)
+            };
+
+            return EjecutarConsulta(sql, parametros);
+        }
+
+        public IEnumerable<Log> ObtenerPaginadoConFiltros(int pagina, int tamañoPagina, 
+            int? usuarioId = null, string accion = null, string tabla = null, 
+            string severidad = null, DateTime? fechaDesde = null, DateTime? fechaHasta = null)
+        {
+            int offset = (pagina - 1) * tamañoPagina;
+            var sql = new System.Text.StringBuilder("SELECT * FROM Logs WHERE 1=1");
+            var parametros = new List<SqlParameter>();
+
+            if (usuarioId.HasValue)
+            {
+                sql.Append(" AND UsuarioId = @UsuarioId");
+                parametros.Add(new SqlParameter("@UsuarioId", usuarioId.Value));
+            }
+
+            if (!string.IsNullOrEmpty(accion))
+            {
+                sql.Append(" AND Accion = @Accion");
+                parametros.Add(new SqlParameter("@Accion", accion));
+            }
+
+            if (!string.IsNullOrEmpty(tabla))
+            {
+                sql.Append(" AND Tabla = @Tabla");
+                parametros.Add(new SqlParameter("@Tabla", tabla));
+            }
+
+            if (!string.IsNullOrEmpty(severidad))
+            {
+                sql.Append(" AND Severidad = @Severidad");
+                parametros.Add(new SqlParameter("@Severidad", severidad));
+            }
+
+            if (fechaDesde.HasValue)
+            {
+                sql.Append(" AND Fecha >= @FechaDesde");
+                parametros.Add(new SqlParameter("@FechaDesde", fechaDesde.Value));
+            }
+
+            if (fechaHasta.HasValue)
+            {
+                sql.Append(" AND Fecha <= @FechaHasta");
+                parametros.Add(new SqlParameter("@FechaHasta", fechaHasta.Value));
+            }
+
+            sql.Append(" ORDER BY Fecha DESC OFFSET @Offset ROWS FETCH NEXT @TamañoPagina ROWS ONLY");
+
+            parametros.Add(new SqlParameter("@Offset", offset));
+            parametros.Add(new SqlParameter("@TamañoPagina", tamañoPagina));
+
+            return EjecutarConsulta(sql.ToString(), parametros.ToArray());
+        }
+
+        #endregion
+
+        #region Estadísticas
+
+        public int ContarTodos()
+        {
+            string sql = "SELECT COUNT(*) FROM Logs";
+            return EjecutarEscalar<int>(sql);
+        }
+
+        public int ContarPorSeveridad(string severidad)
+        {
+            string sql = "SELECT COUNT(*) FROM Logs WHERE Severidad = @Severidad";
+            var parametros = new[] { new SqlParameter("@Severidad", severidad) };
+            return EjecutarEscalar<int>(sql, parametros);
+        }
+
+        public int ContarPorFecha(DateTime fecha)
+        {
+            string sql = "SELECT COUNT(*) FROM Logs WHERE CAST(Fecha as DATE) = CAST(@Fecha as DATE)";
+            var parametros = new[] { new SqlParameter("@Fecha", fecha.Date) };
+            return EjecutarEscalar<int>(sql, parametros);
+        }
+
+        public int ContarPorUsuario(int usuarioId)
+        {
+            string sql = "SELECT COUNT(*) FROM Logs WHERE UsuarioId = @UsuarioId";
+            var parametros = new[] { new SqlParameter("@UsuarioId", usuarioId) };
+            return EjecutarEscalar<int>(sql, parametros);
+        }
+
+        public int ContarErrores()
+        {
+            string sql = "SELECT COUNT(*) FROM Logs WHERE Severidad IN ('ERROR', 'CRITICAL') OR Exitoso = 0";
+            return EjecutarEscalar<int>(sql);
+        }
+
+        #endregion
+
+        #region Mantenimiento
+
+        public void LimpiarLogsAntiguos(int diasAMantener = 90)
+        {
+            string sql = @"
+                DELETE FROM Logs 
+                WHERE Fecha < DATEADD(DAY, -@DiasAMantener, GETDATE()) 
+                AND Severidad NOT IN ('ERROR', 'CRITICAL')";
+
+            var parametros = new[] { new SqlParameter("@DiasAMantener", diasAMantener) };
+            EjecutarComando(sql, parametros);
+        }
+
+        public void GuardarCambios()
+        {
+            // En ADO.NET los cambios se guardan inmediatamente
+        }
+
+        #endregion
+
+        #region Métodos helper
+
+        private IEnumerable<Log> EjecutarConsulta(string sql, SqlParameter[] parametros = null)
+        {
+            var resultados = new List<Log>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    if (parametros != null)
+                    {
+                        command.Parameters.AddRange(parametros);
+                    }
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            resultados.Add(MapearDesdeReader(reader));
+                        }
+                    }
+                }
+            }
+
+            return resultados;
+        }
+
+        private int EjecutarComando(string sql, SqlParameter[] parametros = null)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    if (parametros != null)
+                    {
+                        command.Parameters.AddRange(parametros);
+                    }
+
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private T EjecutarEscalar<T>(string sql, SqlParameter[] parametros = null)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    if (parametros != null)
+                    {
+                        command.Parameters.AddRange(parametros);
+                    }
+
+                    var resultado = command.ExecuteScalar();
+                    return resultado != null ? (T)Convert.ChangeType(resultado, typeof(T)) : default(T);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Filtros avanzados
+
+        public IEnumerable<Log> ObtenerConFiltros(LogFiltroDto filtro)
+        {
+            var sql = new System.Text.StringBuilder("SELECT * FROM Logs WHERE 1=1");
+            var parametros = new List<SqlParameter>();
+
+            // Aplicar filtros
+            if (!string.IsNullOrEmpty(filtro.Severidad))
+            {
+                sql.Append(" AND Severidad = @Severidad");
+                parametros.Add(new SqlParameter("@Severidad", filtro.Severidad));
+            }
+
+            if (!string.IsNullOrEmpty(filtro.Accion))
+            {
+                sql.Append(" AND Accion = @Accion");
+                parametros.Add(new SqlParameter("@Accion", filtro.Accion));
+            }
+
+            if (!string.IsNullOrEmpty(filtro.Username))
+            {
+                sql.Append(" AND Username LIKE @Username");
+                parametros.Add(new SqlParameter("@Username", $"%{filtro.Username}%"));
+            }
+
+            if (filtro.FechaDesde.HasValue)
+            {
+                sql.Append(" AND Fecha >= @FechaDesde");
+                parametros.Add(new SqlParameter("@FechaDesde", filtro.FechaDesde.Value));
+            }
+
+            if (filtro.FechaHasta.HasValue)
+            {
+                sql.Append(" AND Fecha <= @FechaHasta");
+                parametros.Add(new SqlParameter("@FechaHasta", filtro.FechaHasta.Value));
+            }
+
+            // Paginación
+            int offset = (filtro.Pagina - 1) * filtro.TamañoPagina;
+            sql.Append(" ORDER BY Fecha DESC OFFSET @Offset ROWS FETCH NEXT @TamañoPagina ROWS ONLY");
+            parametros.Add(new SqlParameter("@Offset", offset));
+            parametros.Add(new SqlParameter("@TamañoPagina", filtro.TamañoPagina));
+
+            return EjecutarConsulta(sql.ToString(), parametros.ToArray());
+        }
+
+        public int ContarConFiltros(LogFiltroDto filtro)
+        {
+            var sql = new System.Text.StringBuilder("SELECT COUNT(*) FROM Logs WHERE 1=1");
+            var parametros = new List<SqlParameter>();
+
+            // Aplicar los mismos filtros pero sin paginación
+            if (!string.IsNullOrEmpty(filtro.Severidad))
+            {
+                sql.Append(" AND Severidad = @Severidad");
+                parametros.Add(new SqlParameter("@Severidad", filtro.Severidad));
+            }
+
+            if (!string.IsNullOrEmpty(filtro.Accion))
+            {
+                sql.Append(" AND Accion = @Accion");
+                parametros.Add(new SqlParameter("@Accion", filtro.Accion));
+            }
+
+            if (!string.IsNullOrEmpty(filtro.Username))
+            {
+                sql.Append(" AND Username LIKE @Username");
+                parametros.Add(new SqlParameter("@Username", $"%{filtro.Username}%"));
+            }
+
+            if (filtro.FechaDesde.HasValue)
+            {
+                sql.Append(" AND Fecha >= @FechaDesde");
+                parametros.Add(new SqlParameter("@FechaDesde", filtro.FechaDesde.Value));
+            }
+
+            if (filtro.FechaHasta.HasValue)
+            {
+                sql.Append(" AND Fecha <= @FechaHasta");
+                parametros.Add(new SqlParameter("@FechaHasta", filtro.FechaHasta.Value));
+            }
+
+            return EjecutarEscalar<int>(sql.ToString(), parametros.ToArray());
+        }
+
+        #endregion
+    }
+}

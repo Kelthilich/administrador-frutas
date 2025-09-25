@@ -1,0 +1,201 @@
+using System;
+using System.Web.UI;
+using frutas.DTOs;
+using frutas.Security;
+using frutas.Services;
+
+namespace frutas.Frutas
+{
+    public partial class AgregarFruta : Page
+    {
+        private readonly FrutaService _frutaService;
+
+        public AgregarFruta()
+        {
+            _frutaService = new FrutaService();
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Verificar autenticación
+            SiteMaster.RequireLogin();
+
+            if (!IsPostBack)
+            {
+                ConfigurarPagina();
+                ConfigurarValidadores();
+            }
+        }
+
+        /// <summary>
+        /// Configura la página inicial
+        /// </summary>
+        private void ConfigurarPagina()
+        {
+            // Configurar fecha mínima para vencimiento
+            txtFechaVencimiento.Attributes.Add("min", DateTime.Now.ToString("yyyy-MM-dd"));
+            
+            // Enfocar el primer campo
+            txtNombre.Focus();
+        }
+
+        /// <summary>
+        /// Configura los validadores personalizados
+        /// </summary>
+        private void ConfigurarValidadores()
+        {
+            // Configurar validador de fecha de vencimiento para comparar con fecha actual
+            cvFechaVencimiento.ValueToCompare = DateTime.Now.ToString("yyyy-MM-dd");
+        }
+
+        /// <summary>
+        /// Maneja el evento de guardar fruta
+        /// </summary>
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (!Page.IsValid)
+                return;
+
+            try
+            {
+                // Crear DTO con los datos del formulario
+                var frutaDto = CrearFrutaDto();
+
+                // Validaciones adicionales del lado servidor
+                var validationResult = ValidacionesAdicionales(frutaDto);
+                if (!validationResult.IsValid)
+                {
+                    MostrarError(string.Join("<br/>", validationResult.Errors));
+                    return;
+                }
+
+                // Guardar la fruta usando el servicio
+                var resultado = _frutaService.Crear(frutaDto);
+
+                if (resultado.Exitoso)
+                {
+                    // Éxito - redirigir con mensaje
+                    Session["AlertMessage"] = $"¡Fruta '{frutaDto.Nombre}' agregada exitosamente!";
+                    Session["AlertType"] = "success";
+                    Response.Redirect("ListaFrutas.aspx");
+                }
+                else
+                {
+                    // Error del servicio
+                    string mensajeError = resultado.Mensaje;
+                    if (resultado.Errores != null && resultado.Errores.Count > 0)
+                    {
+                        mensajeError += "<br/><br/>Detalles:<br/>" + string.Join("<br/>", resultado.Errores);
+                    }
+                    MostrarError(mensajeError);
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarError($"Error interno del sistema: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Crea el DTO de fruta con los datos del formulario
+        /// </summary>
+        private FrutaFormDto CrearFrutaDto()
+        {
+            return new FrutaFormDto
+            {
+                Nombre = txtNombre.Text.Trim(),
+                Descripcion = string.IsNullOrWhiteSpace(txtDescripcion.Text) ? null : txtDescripcion.Text.Trim(),
+                Precio = decimal.Parse(txtPrecio.Text),
+                Stock = int.Parse(txtStock.Text),
+                Categoria = string.IsNullOrEmpty(ddlCategoria.SelectedValue) ? null : ddlCategoria.SelectedValue,
+                PaisOrigen = string.IsNullOrEmpty(ddlPaisOrigen.SelectedValue) ? null : ddlPaisOrigen.SelectedValue,
+                Temporada = string.IsNullOrEmpty(ddlTemporada.SelectedValue) ? null : ddlTemporada.SelectedValue,
+                EsOrganica = chkEsOrganica.Checked,
+                FechaVencimiento = string.IsNullOrEmpty(txtFechaVencimiento.Text) ? 
+                    (DateTime?)null : DateTime.Parse(txtFechaVencimiento.Text)
+            };
+        }
+
+        /// <summary>
+        /// Realiza validaciones adicionales específicas del negocio
+        /// </summary>
+        private frutas.Validators.ValidationResult ValidacionesAdicionales(FrutaFormDto fruta)
+        {
+            var result = new frutas.Validators.ValidationResult();
+
+            // Usar el validador de negocio
+            var validacionNegocio = frutas.Validators.FrutaValidator.ValidarFrutaForm(fruta);
+            if (!validacionNegocio.IsValid)
+            {
+                result.AddErrors(validacionNegocio.Errors);
+            }
+
+            // Validaciones específicas adicionales
+            if (fruta.Precio > 1000)
+            {
+                result.AddError("El precio parece muy alto. ¿Está seguro que es correcto?");
+            }
+
+            if (fruta.Stock > 10000)
+            {
+                result.AddError("El stock parece muy alto. ¿Está seguro que es correcto?");
+            }
+
+            // Validar fecha de vencimiento si está presente
+            if (fruta.FechaVencimiento.HasValue)
+            {
+                if (fruta.FechaVencimiento.Value <= DateTime.Now.Date)
+                {
+                    result.AddError("La fecha de vencimiento debe ser futura");
+                }
+
+                if (fruta.FechaVencimiento.Value > DateTime.Now.Date.AddYears(2))
+                {
+                    result.AddError("La fecha de vencimiento no puede ser más de 2 años en el futuro");
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Muestra un mensaje de error en la página
+        /// </summary>
+        private void MostrarError(string mensaje)
+        {
+            var master = this.Master as SiteMaster;
+            master?.MostrarAlerta(mensaje, "danger");
+
+            // Scroll hacia arriba para mostrar el mensaje
+            ScriptManager.RegisterStartupScript(this, GetType(), "ScrollToTop",
+                "$(document).ready(function() { $('html, body').animate({ scrollTop: 0 }, 500); });", true);
+        }
+
+        /// <summary>
+        /// Muestra un mensaje de éxito
+        /// </summary>
+        private void MostrarExito(string mensaje)
+        {
+            var master = this.Master as SiteMaster;
+            master?.MostrarAlerta(mensaje, "success");
+        }
+
+        /// <summary>
+        /// Override del método Render para agregar atributos a los controles
+        /// </summary>
+        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        {
+            // Agregar atributos para mejor UX
+            txtNombre.Attributes.Add("autocomplete", "off");
+            txtDescripcion.Attributes.Add("autocomplete", "off");
+            txtPrecio.Attributes.Add("step", "0.01");
+            txtPrecio.Attributes.Add("min", "0.01");
+            txtStock.Attributes.Add("min", "0");
+            
+            // Agregar validación JavaScript
+            btnGuardar.Attributes.Add("onclick", "return validarFormulario();");
+            
+            base.Render(writer);
+        }
+    }
+}

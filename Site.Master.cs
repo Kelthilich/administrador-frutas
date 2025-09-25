@@ -1,0 +1,176 @@
+﻿using System;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using frutas.Security;
+using frutas.Services;
+
+namespace frutas
+{
+    public partial class SiteMaster : MasterPage
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            ConfigurarNavegacion();
+            MostrarMensajes();
+        }
+
+        /// <summary>
+        /// Configura la navegación basada en el estado de autenticación del usuario
+        /// </summary>
+        private void ConfigurarNavegacion()
+        {
+            bool estaLogueado = SessionHelper.EstaLogueado;
+            bool esAdministrador = SessionHelper.EsAdministrador;
+
+            // Menús para usuarios logueados
+            userMenu.Visible = estaLogueado;
+            frutasMenu.Visible = estaLogueado;
+
+            // Menús solo para administradores
+            adminMenu.Visible = estaLogueado && esAdministrador;
+            logsMenu.Visible = estaLogueado && esAdministrador;
+
+            // Menús para usuarios no logueados
+            loginMenu.Visible = !estaLogueado;
+            registerMenu.Visible = !estaLogueado;
+
+            if (estaLogueado)
+            {
+                var usuario = SessionHelper.UsuarioActual;
+                lblUsuario.Text = string.IsNullOrEmpty(usuario.NombreCompleto) 
+                    ? usuario.Username 
+                    : usuario.NombreCompleto;
+                
+                // Agregar indicador de rol para administradores
+                if (esAdministrador)
+                {
+                    lblUsuario.Text += " <small class='badge badge-warning'>Admin</small>";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Muestra mensajes de alerta si existen en la sesión
+        /// </summary>
+        private void MostrarMensajes()
+        {
+            // Verificar si hay un mensaje en la sesión
+            var mensaje = Session["AlertMessage"] as string;
+            var tipoMensaje = Session["AlertType"] as string;
+
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                MostrarAlerta(mensaje, tipoMensaje ?? "info");
+                
+                // Limpiar el mensaje de la sesión
+                Session.Remove("AlertMessage");
+                Session.Remove("AlertType");
+            }
+        }
+
+        /// <summary>
+        /// Muestra una alerta en la página
+        /// </summary>
+        /// <param name="mensaje">Mensaje a mostrar</param>
+        /// <param name="tipo">Tipo de alerta (success, danger, warning, info)</param>
+        public void MostrarAlerta(string mensaje, string tipo = "info")
+        {
+            pnlAlert.Visible = true;
+            lblAlert.Text = mensaje;
+            
+            // Limpiar clases CSS previas
+            string cssClasses = "alert alert-dismissible fade show";
+            
+            switch (tipo.ToLower())
+            {
+                case "success":
+                    cssClasses += " alert-success";
+                    break;
+                case "error":
+                case "danger":
+                    cssClasses += " alert-danger";
+                    break;
+                case "warning":
+                    cssClasses += " alert-warning";
+                    break;
+                case "info":
+                default:
+                    cssClasses += " alert-info";
+                    break;
+            }
+            
+            pnlAlert.CssClass = cssClasses;
+        }
+
+        /// <summary>
+        /// Maneja el evento de logout
+        /// </summary>
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Usar el servicio de usuario para hacer logout
+                var usuarioService = new UsuarioService();
+                var resultado = usuarioService.Logout();
+
+                if (resultado.Exitoso)
+                {
+                    // Establecer mensaje de éxito para la próxima página
+                    Session["AlertMessage"] = "Sesión cerrada exitosamente";
+                    Session["AlertType"] = "success";
+                    
+                    // Redirigir a la página principal
+                    Response.Redirect("~/Default.aspx");
+                }
+                else
+                {
+                    MostrarAlerta(resultado.Mensaje, "danger");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarAlerta($"Error al cerrar sesión: {ex.Message}", "danger");
+            }
+        }
+
+        /// <summary>
+        /// Método helper para establecer mensajes desde páginas hijas
+        /// </summary>
+        /// <param name="mensaje">Mensaje a mostrar</param>
+        /// <param name="tipo">Tipo de mensaje</param>
+        public static void EstablecerMensaje(string mensaje, string tipo = "info")
+        {
+            HttpContext.Current.Session["AlertMessage"] = mensaje;
+            HttpContext.Current.Session["AlertType"] = tipo;
+        }
+
+        /// <summary>
+        /// Redirige a login si el usuario no está autenticado
+        /// </summary>
+        /// <param name="mensaje">Mensaje opcional a mostrar</param>
+        public static void RequireLogin(string mensaje = "Debe iniciar sesión para acceder a esta página")
+        {
+            if (!SessionHelper.EstaLogueado)
+            {
+                EstablecerMensaje(mensaje, "warning");
+                HttpContext.Current.Response.Redirect("~/Account/Login.aspx");
+            }
+        }
+
+        /// <summary>
+        /// Verifica que el usuario sea administrador
+        /// </summary>
+        /// <param name="mensaje">Mensaje opcional a mostrar</param>
+        public static void RequireAdmin(string mensaje = "No tiene permisos de administrador para acceder a esta página")
+        {
+            RequireLogin(); // Primero verificar que esté logueado
+            
+            if (!SessionHelper.EsAdministrador)
+            {
+                EstablecerMensaje(mensaje, "danger");
+                HttpContext.Current.Response.Redirect("~/Default.aspx");
+            }
+        }
+    }
+}

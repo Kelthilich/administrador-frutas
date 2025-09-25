@@ -1,0 +1,43 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace frutas.Models
+{
+    /// <summary>
+    /// Clase base para todas las entidades del sistema
+    /// Implementa propiedades comunes como auditoría
+    /// </summary>
+    public abstract class BaseEntity
+    {
+        /// <summary>
+        /// Identificador único de la entidad
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Fecha de creación del registro
+        /// </summary>
+        public DateTime FechaCreacion { get; set; } = DateTime.Now;
+
+        /// <summary>
+        /// Fecha de última modificación del registro
+        /// </summary>
+        public DateTime? FechaModificacion { get; set; }
+
+        /// <summary>
+        /// Indica si el registro está activo (soft delete)
+        /// </summary>
+        public bool Activo { get; set; } = true;
+
+        /// <summary>
+        /// Usuario que creó el registro
+        /// </summary>
+        public int? UsuarioCreacion { get; set; }
+
+        /// <summary>
+        /// Usuario que modificó el registro por última vez
+        /// </summary>
+        public int? UsuarioModificacion { get; set; }
+    }
+}
