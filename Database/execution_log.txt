@@ -1,0 +1,23 @@
+Changed database context to 'master'.
+Base de datos FrutasDB creada exitosamente.
+Changed database context to 'FrutasDB'.
+Tabla Usuarios creada exitosamente.
+Tabla Frutas creada exitosamente.
+Tabla Logs creada exitosamente.
+Tabla ApiKeys creada exitosamente.
+
+(1 rows affected)
+Usuario administrador creado exitosamente.
+Username: admin
+Password: Admin123!
+
+(8 rows affected)
+Datos de ejemplo insertados exitosamente.
+================================================
+Base de datos FrutasDB configurada exitosamente.
+================================================
+Tablas creadas: Usuarios, Frutas, Logs, ApiKeys
+Usuario admin creado con password: Admin123!
+Datos de ejemplo insertados en tabla Frutas
+Procedimientos almacenados creados
+================================================

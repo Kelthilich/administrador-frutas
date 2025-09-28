@@ -1,0 +1,280 @@
+﻿# Plan de Desarrollo - Sistema de Gestión de Frutas
+## .NET Framework 4.8 con Arquitectura en Capas
+
+### Descripción General
+Este proyecto implementará un sistema completo de gestión de frutas utilizando .NET Framework 4.8 y C# 7.3, siguiendo una arquitectura en capas con separación de responsabilidades.
+
+### Arquitectura de la Solución
+
+#### 1. **slnEntidades** (Class Library) ✅ **COMPLETADO**
+- **Propósito**: Contiene las entidades del dominio
+- **Contenido**:
+  - ✅ `Usuario.cs` - Entidad para autenticación
+  - ✅ `Fruta.cs` - Entidad principal del negocio
+  - ✅ `Log.cs` - Entidad para auditoría
+  - ✅ `BaseEntity.cs` - Clase base con propiedades comunes
+  - ✅ `ApiKey.cs` - Entidad para API Keys
+
+#### 2. **slnDatos** (Class Library) ✅ **COMPLETADO**
+- **Propósito**: Capa de acceso a datos con patrón Repository
+- **Contenido**:
+  - ⏳ `Context/FrutasContext.cs` - Contexto de Entity Framework (No implementado - usando ADO.NET directo)
+  - ✅ `Repositories/IRepository.cs` - Interfaz genérica
+  - ✅ `Repositories/UsuarioRepository.cs`
+  - ✅ `Repositories/FrutaRepository.cs`
+  - ✅ `Repositories/LogRepository.cs`
+  - ✅ `Repositories/ApiKeyRepository.cs`
+  - ⏳ `Migrations/` - Migraciones de base de datos (No necesario - usando SQL scripts)
+  - ✅ `Connection/SqlConnectionHelper.cs`
+
+#### 3. **slnControl** (Class Library) ✅ **COMPLETADO**
+- **Propósito**: Lógica de negocio y servicios
+- **Contenido**:
+  - ✅ `Services/UsuarioService.cs` - Lógica de autenticación
+  - ✅ `Services/FrutaService.cs` - Lógica CRUD de frutas
+  - ✅ `Services/LogService.cs` - Gestión de logs
+  - ✅ `Security/PasswordHelper.cs` - Encriptación de contraseñas
+  - ✅ `Security/SessionHelper.cs` - Manejo de sesiones
+  - ✅ `Validators/` - Validaciones de negocio
+  - ✅ `DTOs/` - Data Transfer Objects
+
+#### 4. **slnFrutas** (Web Application) 🚧 **EN PROGRESO - 40%**
+- **Propósito**: Aplicación web principal (UI)
+- **Contenido**:
+  - 🚧 `Login.aspx` - Página de inicio de sesión (**EN DESARROLLO**)
+  - 🚧 `Register.aspx` - Página de registro (**EN DESARROLLO**)
+  - ⏳ `Default.aspx` - Dashboard principal
+  - ⏳ `Frutas/` - Páginas CRUD de frutas
+    - ⏳ `ListaFrutas.aspx`
+    - ⏳ `AgregarFruta.aspx`
+    - ⏳ `EditarFruta.aspx`
+  - ✅ `Master Pages/` - Plantillas maestras (**COMPLETADO**)
+  - ⏳ `App_Code/` - Clases de código
+  - ⏳ `Scripts/` - JavaScript y jQuery
+  - ⏳ `Styles/` - CSS y estilos
+
+#### 5. **FrutasAPI** (ASP.NET Web API) ⏳ **PENDIENTE**
+- **Propósito**: API REST para exponer servicios de frutas
+- **Contenido**:
+  - ⏳ `Controllers/`
+    - ⏳ `FrutasController.cs` - Endpoints CRUD para frutas
+    - ⏳ `UsuariosController.cs` - Endpoints de autenticación
+    - ⏳ `ReportesController.cs` - Endpoints para reportes y estadísticas
+  - ⏳ `Models/`
+    - ⏳ `ApiResponse.cs` - Modelo de respuesta estándar
+    - ⏳ `FrutaApiModel.cs` - Modelo específico para API
+    - ⏳ `LoginRequest.cs` - Modelo para requests de login
+    - ⏳ `RegisterRequest.cs` - Modelo para requests de registro
+  - ⏳ `Filters/`
+    - ⏳ `AuthenticationFilter.cs` - Filtro de autenticación
+    - ⏳ `ExceptionFilter.cs` - Manejo de excepciones
+    - ⏳ `LoggingFilter.cs` - Logging de requests
+  - ⏳ `Helpers/`
+    - ⏳ `ApiKeyHelper.cs` - Validación de API Keys
+    - ⏳ `ResponseHelper.cs` - Helper para responses consistentes
+  - ⏳ `Documentation/`
+    - ⏳ Swagger/OpenAPI documentation
+
+### Tecnologías y Patrones
+
+#### Tecnologías Principales ✅ **COMPLETADO**
+- ✅ **.NET Framework 4.8**
+- ✅ **C# 7.3**
+- 🚧 **ASP.NET Web Forms** (**EN DESARROLLO** - Master Page y páginas de auth)
+- ⏳ **ASP.NET Web API 2** (Pendiente implementar)
+- ⏳ **Entity Framework 6.x** (No implementado - usando ADO.NET)
+- ✅ **SQL Server**
+- ⏳ **Swagger/OpenAPI** (para documentación de API)
+- ⏳ **Postman Collection** (para testing de API)
+
+#### Patrones de Diseño ✅ **COMPLETADO**
+- ✅ **Repository Pattern** - Acceso a datos
+- ✅ **Service Layer Pattern** - Lógica de negocio
+- ✅ **DTO Pattern** - Transferencia de datos
+- ⏳ **Dependency Injection** - Inyección de dependencias (Básica implementada)
+- ⏳ **RESTful API Design** - Diseño de API REST
+- ⏳ **Filter Pattern** - Filtros de API
+
+#### Características Técnicas
+- 🚧 **Autenticación Web**: Sistema de login/registro con hash de contraseñas y sesiones (**EN DESARROLLO**)
+- ⏳ **Autenticación API**: API Keys y/o Bearer tokens (Backend listo)
+- ✅ **Autorización**: Control de acceso basado en roles
+- ✅ **Logging**: Registro de operaciones en base de datos
+- ✅ **Validaciones**: Client-side, server-side y API validations (Backend listo)
+- 🚧 **Responsive Design**: Bootstrap para UI web (**EN DESARROLLO**)
+- ✅ **Error Handling**: Manejo centralizado de errores
+- ✅ **Configuration**: App.config y Web.config
+- ⏳ **API Documentation**: Swagger/OpenAPI integration
+- ⏳ **CORS Support**: Cross-Origin Resource Sharing
+- ⏳ **Rate Limiting**: Control de límites de requests
+- ⏳ **Content Negotiation**: JSON/XML responses
+
+### Base de Datos ✅ **COMPLETADO**
+
+#### Tablas Principales ✅ **SCRIPT CREADO**
+```sql
+-- ✅ Tabla Usuarios - COMPLETADA
+-- ✅ Tabla Frutas - COMPLETADA  
+-- ✅ Tabla Logs - COMPLETADA
+-- ✅ Tabla ApiKeys - COMPLETADA
+-- ✅ Procedimientos almacenados - COMPLETADOS
+-- ✅ Datos de ejemplo - COMPLETADOS
+```
+
+### Funcionalidades Principales
+
+#### Autenticación y Autorización 🚧 **UI EN DESARROLLO**
+- 🚧 Registro de usuarios con validaciones (Web **EN DESARROLLO** + API Backend ✅)
+- 🚧 Login con encriptación de contraseñas (Web **EN DESARROLLO** + API Backend ✅)
+- 🚧 Session management (Web **EN DESARROLLO** + Backend ✅)
+- ✅ API Key management (API Backend)
+- 🚧 Logout seguro (Web **EN DESARROLLO** + Backend ✅)
+
+#### CRUD de Frutas ✅ **BACKEND COMPLETADO**
+- ✅ Listar frutas con paginación (Web + API Backend)
+- ✅ Agregar nueva fruta (Web + API Backend)
+- ✅ Editar fruta existente (Web + API Backend)
+- ✅ Eliminar fruta (soft delete) (Web + API Backend)
+- ✅ Búsqueda y filtros (Web + API Backend)
+
+#### Logging y Auditoría ✅ **COMPLETADO**
+- ✅ Registro de todas las operaciones CRUD
+- ✅ Seguimiento de cambios
+- ✅ Logs de autenticación (Web + API)
+- ✅ Información de IP y timestamp
+- ✅ API request logging
+
+#### API REST Endpoints ✅ **BACKEND COMPLETADO - FALTA IMPLEMENTAR CONTROLLERS**
+- ⏳ **GET** `/api/frutas` - Obtener lista de frutas (Backend listo)
+- ⏳ **GET** `/api/frutas/{id}` - Obtener fruta por ID (Backend listo)
+- ⏳ **POST** `/api/frutas` - Crear nueva fruta (Backend listo)
+- ⏳ **PUT** `/api/frutas/{id}` - Actualizar fruta (Backend listo)
+- ⏳ **DELETE** `/api/frutas/{id}` - Eliminar fruta (Backend listo)
+- ⏳ **GET** `/api/frutas/search?q={query}` - Buscar frutas (Backend listo)
+- ⏳ **GET** `/api/usuarios/auth` - Autenticación (Backend listo)
+- ⏳ **POST** `/api/usuarios/register` - Registro (Backend listo)
+- ⏳ **GET** `/api/reportes/estadisticas` - Estadísticas (Backend listo)
+- ⏳ **GET** `/api/reportes/stock` - Reporte de stock (Backend listo)
+
+### Fases de Desarrollo
+
+#### Fase 1: Infraestructura Base ✅ **100% COMPLETADA**
+1. ✅ Crear estructura de proyectos
+2. ✅ Configurar Entity Framework (Reemplazado por ADO.NET)
+3. ✅ Crear entidades base
+4. ✅ Implementar repositorios
+
+#### Fase 2: Lógica de Negocio ✅ **100% COMPLETADA**
+1. ✅ Implementar servicios
+2. ✅ Crear validadores
+3. ✅ Configurar seguridad
+4. ✅ Implementar logging
+
+#### Fase 3: Interfaz Web 🚧 **40% COMPLETADA - EN DESARROLLO**
+1. ✅ Crear master pages (**COMPLETADO**)
+2. 🚧 Implementar páginas de autenticación (**EN DESARROLLO** - Login y Register creadas)
+3. ⏳ Desarrollar CRUD de frutas (**SIGUIENTE**)
+4. ⏳ Aplicar estilos y validaciones
+
+#### Fase 4: API REST ⏳ **0% - PENDIENTE**
+1. ⏳ Configurar ASP.NET Web API 2
+2. ⏳ Implementar controllers de API
+3. ⏳ Configurar autenticación de API
+4. ⏳ Implementar filtros y middleware
+5. ⏳ Documentar API con Swagger
+6. ⏳ Crear collection de Postman
+
+#### Fase 5: Testing y Deployment ⏳ **0% - PENDIENTE**
+1. ⏳ Pruebas unitarias
+2. ⏳ Pruebas de integración
+3. ⏳ Testing de API endpoints
+4. ⏳ Configuración de despliegue
+5. ⏳ Documentación final
+
+### Configuración del Entorno
+
+#### Prerequisitos ✅ **COMPLETADO**
+- ✅ Visual Studio 2019/2022
+- ⏳ SQL Server (LocalDB o Express) - **NECESITA EJECUTAR SCRIPT**
+- ✅ .NET Framework 4.8 SDK
+- ✅ IIS Express
+- ⏳ Postman (para testing de API)
+- ⏳ SQL Server Management Studio (opcional)
+
+#### Paquetes NuGet Requeridos 🚧 **PARCIALMENTE COMPLETADO**
+- ⏳ EntityFramework 6.4.4 (No implementado)
+- ⏳ Microsoft.AspNet.WebApi 5.2.9 (Pendiente)
+- ⏳ Microsoft.AspNet.WebApi.WebHost 5.2.9 (Pendiente)
+- ⏳ Microsoft.AspNet.Web.Optimization (Pendiente)
+- 🚧 Bootstrap 4.6.0 (**EN USO** - CDN)
+- 🚧 jQuery 3.6.0 (**EN USO** - CDN)
+- ✅ System.Data.SqlClient
+- ✅ BCrypt.Net-Next (para hashing de contraseñas) - **IMPLEMENTADO CUSTOM**
+- ⏳ Swashbuckle (para Swagger documentation)
+- ⏳ Microsoft.AspNet.Cors (para CORS support)
+- ⏳ Newtonsoft.Json (para JSON serialization)
+
+### Mejores Prácticas Implementadas
+
+#### Código ✅ **COMPLETADO**
+- ✅ Nomenclatura consistente (PascalCase, camelCase)
+- ✅ Comentarios XML en métodos públicos
+- ✅ Manejo de excepciones centralizado
+- ✅ Separación de responsabilidades
+- ✅ Principios SOLID
+- ⏳ RESTful API conventions
+
+#### Seguridad ✅ **COMPLETADO**
+- ✅ Hash de contraseñas con salt
+- 🚧 Validación de entrada (Web **EN DESARROLLO** + API Backend ✅)
+- ✅ Prevención de SQL Injection
+- 🚧 Control de sesiones (Web **EN DESARROLLO**)
+- ✅ API Key validation (API Backend)
+- ⏳ CORS configuration
+- ⏳ Rate limiting
+- ✅ Input sanitization
+
+#### Performance ✅ **COMPLETADO**
+- ⏳ Lazy loading en Entity Framework (No implementado)
+- ✅ Paginación de resultados (Web + API Backend)
+- ⏳ Caché de datos frecuentes
+- ✅ Optimización de consultas
+- ✅ Connection pooling
+- ⏳ API response caching
+- ⏳ Compression for API responses
+
+#### API Design ⏳ **BACKEND LISTO - FALTA IMPLEMENTAR**
+- ⏳ RESTful endpoint design
+- ✅ Consistent response format (DTOs listos)
+- ⏳ Proper HTTP status codes
+- ⏳ Content negotiation (JSON/XML)
+- ⏳ API versioning support
+- ⏳ Comprehensive error responses
+- ⏳ Swagger/OpenAPI documentation
+- ⏳ Request/Response logging
+
+---
+
+## 📊 **ESTADO ACTUAL: FASES 1 y 2 COMPLETADAS - FASE 3 EN DESARROLLO**
+
+### ✅ **LO QUE FUNCIONA:**
+- Sistema completo de backend (Servicios, Repositorios, DTOs, Validadores)
+- Autenticación y autorización robusta (backend)
+- CRUD completo de frutas con filtros y paginación (backend)
+- Sistema de logging y auditoría
+- Validaciones de negocio completas
+- Scripts de base de datos listos
+- **Master Page con navegación dinámica**
+- **Páginas Login y Register con validaciones (en desarrollo)**
+
+### 🚧 **EN DESARROLLO:**
+- Páginas de autenticación (Login/Register)
+- Integración completa UI-Backend
+- Manejo de errores en UI
+
+### 🚀 **PRÓXIMO PASO: COMPLETAR FASE 3**
+- Dashboard principal (Default.aspx)
+- CRUD de frutas (UI)
+- Estilos y validaciones cliente
+
+Este plan asegura un aprendizaje completo de .NET Framework 4.8 con ejemplos prácticos, arquitectura profesional y exposición a tecnologías web modernas incluyendo APIs REST.

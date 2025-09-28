@@ -1,0 +1,156 @@
+D:\Document\VS Projects\frutas\bin\frutas.dll.config
+D:\Document\VS Projects\frutas\bin\frutas.dll
+D:\Document\VS Projects\frutas\bin\frutas.pdb
+D:\Document\VS Projects\frutas\bin\roslyn\csc.exe
+D:\Document\VS Projects\frutas\bin\roslyn\csc.exe.config
+D:\Document\VS Projects\frutas\bin\roslyn\csc.rsp
+D:\Document\VS Projects\frutas\bin\roslyn\csi.exe
+D:\Document\VS Projects\frutas\bin\roslyn\csi.exe.config
+D:\Document\VS Projects\frutas\bin\roslyn\csi.rsp
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Document\VS Projects\frutas\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.AppContext.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Collections.Immutable.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Console.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Globalization.Calendars.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.IO.Compression.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.IO.FileSystem.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Net.Http.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Net.Sockets.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Reflection.Metadata.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.ValueTuple.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Xml.XPath.dll
+D:\Document\VS Projects\frutas\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Document\VS Projects\frutas\bin\roslyn\vbc.exe
+D:\Document\VS Projects\frutas\bin\roslyn\vbc.exe.config
+D:\Document\VS Projects\frutas\bin\roslyn\vbc.rsp
+D:\Document\VS Projects\frutas\bin\roslyn\VBCSCompiler.exe
+D:\Document\VS Projects\frutas\bin\roslyn\VBCSCompiler.exe.config
+D:\Document\VS Projects\frutas\bin\Antlr3.Runtime.dll
+D:\Document\VS Projects\frutas\bin\Microsoft.AspNet.FriendlyUrls.dll
+D:\Document\VS Projects\frutas\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
+D:\Document\VS Projects\frutas\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Document\VS Projects\frutas\bin\Microsoft.ScriptManager.MSAjax.dll
+D:\Document\VS Projects\frutas\bin\Microsoft.ScriptManager.WebForms.dll
+D:\Document\VS Projects\frutas\bin\Microsoft.Web.Infrastructure.dll
+D:\Document\VS Projects\frutas\bin\Newtonsoft.Json.dll
+D:\Document\VS Projects\frutas\bin\System.Net.Http.Formatting.dll
+D:\Document\VS Projects\frutas\bin\System.Web.Http.dll
+D:\Document\VS Projects\frutas\bin\System.Web.Http.WebHost.dll
+D:\Document\VS Projects\frutas\bin\System.Web.Optimization.dll
+D:\Document\VS Projects\frutas\bin\WebGrease.dll
+D:\Document\VS Projects\frutas\bin\System.Web.Optimization.xml
+D:\Document\VS Projects\frutas\bin\Newtonsoft.Json.xml
+D:\Document\VS Projects\frutas\bin\Antlr3.Runtime.pdb
+D:\Document\VS Projects\frutas\bin\Microsoft.AspNet.FriendlyUrls.xml
+D:\Document\VS Projects\frutas\bin\System.Net.Http.Formatting.xml
+D:\Document\VS Projects\frutas\bin\System.Web.Http.xml
+D:\Document\VS Projects\frutas\bin\System.Web.Http.WebHost.xml
+D:\Document\VS Projects\frutas\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Document\VS Projects\frutas\obj\Debug\frutas.csproj.AssemblyReference.cache
+D:\Document\VS Projects\frutas\obj\Debug\frutas.csproj.CoreCompileInputs.cache
+D:\Document\VS Projects\frutas\obj\Debug\frutas.csproj.Up2Date
+D:\Document\VS Projects\frutas\obj\Debug\frutas.dll
+D:\Document\VS Projects\frutas\obj\Debug\frutas.pdb
+D:\Document\GitHub\administrador-frutas\bin\frutas.dll.config
+D:\Document\GitHub\administrador-frutas\bin\frutas.dll
+D:\Document\GitHub\administrador-frutas\bin\frutas.pdb
+D:\Document\GitHub\administrador-frutas\bin\roslyn\csc.exe
+D:\Document\GitHub\administrador-frutas\bin\roslyn\csc.exe.config
+D:\Document\GitHub\administrador-frutas\bin\roslyn\csc.rsp
+D:\Document\GitHub\administrador-frutas\bin\roslyn\csi.exe
+D:\Document\GitHub\administrador-frutas\bin\roslyn\csi.exe.config
+D:\Document\GitHub\administrador-frutas\bin\roslyn\csi.rsp
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Document\GitHub\administrador-frutas\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.AppContext.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Collections.Immutable.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Console.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Globalization.Calendars.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.IO.Compression.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.IO.FileSystem.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Net.Http.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Net.Sockets.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Reflection.Metadata.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.ValueTuple.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Xml.XPath.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Document\GitHub\administrador-frutas\bin\roslyn\vbc.exe
+D:\Document\GitHub\administrador-frutas\bin\roslyn\vbc.exe.config
+D:\Document\GitHub\administrador-frutas\bin\roslyn\vbc.rsp
+D:\Document\GitHub\administrador-frutas\bin\roslyn\VBCSCompiler.exe
+D:\Document\GitHub\administrador-frutas\bin\roslyn\VBCSCompiler.exe.config
+D:\Document\GitHub\administrador-frutas\bin\Antlr3.Runtime.dll
+D:\Document\GitHub\administrador-frutas\bin\Microsoft.AspNet.FriendlyUrls.dll
+D:\Document\GitHub\administrador-frutas\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
+D:\Document\GitHub\administrador-frutas\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Document\GitHub\administrador-frutas\bin\Microsoft.ScriptManager.MSAjax.dll
+D:\Document\GitHub\administrador-frutas\bin\Microsoft.ScriptManager.WebForms.dll
+D:\Document\GitHub\administrador-frutas\bin\Microsoft.Web.Infrastructure.dll
+D:\Document\GitHub\administrador-frutas\bin\Newtonsoft.Json.dll
+D:\Document\GitHub\administrador-frutas\bin\System.Net.Http.Formatting.dll
+D:\Document\GitHub\administrador-frutas\bin\System.Web.Http.dll
+D:\Document\GitHub\administrador-frutas\bin\System.Web.Http.WebHost.dll
+D:\Document\GitHub\administrador-frutas\bin\System.Web.Optimization.dll
+D:\Document\GitHub\administrador-frutas\bin\WebGrease.dll
+D:\Document\GitHub\administrador-frutas\bin\System.Web.Optimization.xml
+D:\Document\GitHub\administrador-frutas\bin\Newtonsoft.Json.xml
+D:\Document\GitHub\administrador-frutas\bin\Antlr3.Runtime.pdb
+D:\Document\GitHub\administrador-frutas\bin\Microsoft.AspNet.FriendlyUrls.xml
+D:\Document\GitHub\administrador-frutas\bin\System.Net.Http.Formatting.xml
+D:\Document\GitHub\administrador-frutas\bin\System.Web.Http.xml
+D:\Document\GitHub\administrador-frutas\bin\System.Web.Http.WebHost.xml
+D:\Document\GitHub\administrador-frutas\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Document\GitHub\administrador-frutas\obj\Debug\frutas.csproj.AssemblyReference.cache
+D:\Document\GitHub\administrador-frutas\obj\Debug\frutas.csproj.CoreCompileInputs.cache
+D:\Document\GitHub\administrador-frutas\obj\Debug\frutas.csproj.Up2Date
+D:\Document\GitHub\administrador-frutas\obj\Debug\frutas.dll
+D:\Document\GitHub\administrador-frutas\obj\Debug\frutas.pdb

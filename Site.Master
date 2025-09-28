@@ -1,0 +1,168 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="frutas.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Sistema de Gestión de Frutas</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <style>
+        .navbar-brand i {
+            margin-right: 8px;
+        }
+        .dropdown-item i {
+            width: 20px;
+            margin-right: 8px;
+        }
+        .nav-link i {
+            margin-right: 5px;
+        }
+        footer {
+            margin-top: 50px;
+        }
+        .alert {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <form runat="server" id="form1">
+        <asp:ScriptManager runat="server" EnableCdn="true">
+        </asp:ScriptManager>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container">
+                <a class="navbar-brand" runat="server" href="~/">
+                    <i class="fas fa-apple-alt"></i>Sistema de Frutas
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href="~/">
+                                <i class="fas fa-home"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown" runat="server" id="frutasMenu" visible="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                <i class="fas fa-apple-alt"></i>Frutas
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" runat="server" href="~/Frutas/ListaFrutas.aspx">
+                                    <i class="fas fa-list"></i>Lista de Frutas
+                                </a>
+                                <a class="dropdown-item" runat="server" href="~/Frutas/AgregarFruta.aspx">
+                                    <i class="fas fa-plus"></i>Agregar Fruta
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item" runat="server" id="adminMenu" visible="false">
+                            <a class="nav-link" runat="server" href="~/Admin/Usuarios.aspx">
+                                <i class="fas fa-users"></i>Usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item" runat="server" id="logsMenu" visible="false">
+                            <a class="nav-link" runat="server" href="~/Admin/Logs.aspx">
+                                <i class="fas fa-clipboard-list"></i>Logs
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown" runat="server" id="userMenu" visible="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                <i class="fas fa-user"></i>
+                                <asp:Label ID="lblUsuario" runat="server" Text="" />
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" runat="server" href="~/Account/Profile.aspx">
+                                    <i class="fas fa-user-edit"></i>Mi Perfil
+                                </a>
+                                <a class="dropdown-item" runat="server" href="~/Account/ChangePassword.aspx">
+                                    <i class="fas fa-key"></i>Cambiar Contraseña
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <asp:LinkButton ID="lnkLogout" runat="server" CssClass="dropdown-item" OnClick="lnkLogout_Click">
+                                    <i class="fas fa-sign-out-alt"></i>Cerrar Sesión
+                                </asp:LinkButton>
+                            </div>
+                        </li>
+                        <li class="nav-item" runat="server" id="loginMenu" visible="true">
+                            <a class="nav-link" runat="server" href="~/Account/Login.aspx">
+                                <i class="fas fa-sign-in-alt"></i>Iniciar Sesión
+                            </a>
+                        </li>
+                        <li class="nav-item" runat="server" id="registerMenu" visible="true">
+                            <a class="nav-link" runat="server" href="~/Account/Register.aspx">
+                                <i class="fas fa-user-plus"></i>Registrarse
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Alert Messages -->
+        <div class="container-fluid">
+            <asp:Panel ID="pnlAlert" runat="server" Visible="false" CssClass="alert alert-dismissible fade show mt-3">
+                <asp:Label ID="lblAlert" runat="server" />
+                <button type="button" class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+            </asp:Panel>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container-fluid body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            
+            <!-- Footer -->
+            <footer class="bg-light border-top">
+                <div class="container py-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-apple-alt text-success"></i> Sistema de Gestión de Frutas</h6>
+                            <p class="text-muted mb-0">
+                                Desarrollado con .NET Framework 4.8<br />
+                                <small>&copy; <%: DateTime.Now.Year %> - Todos los derechos reservados</small>
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-md-right">
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-code"></i> Arquitectura en capas<br />
+                                <small>Version 1.0.0</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </form>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <asp:ContentPlaceHolder ID="ScriptsContent" runat="server">
+    </asp:ContentPlaceHolder>
+</body>
+</html>

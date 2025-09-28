@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  https://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <configSections>
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  
+  <!-- Cadenas de conexión -->
+  <connectionStrings>
+    <!-- Conexión a SQL Server LocalDB -->
+    <add name="DefaultConnection" 
+         connectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FrutasDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" 
+         providerName="System.Data.SqlClient" />
+    
+    <!-- Alternativa para SQL Server Express -->
+    <!-- 
+    <add name="DefaultConnection" 
+         connectionString="Server=.\SQLEXPRESS;Database=FrutasDB;Trusted_Connection=true;MultipleActiveResultSets=true;" 
+         providerName="System.Data.SqlClient" />
+    -->
+  </connectionStrings>
+  
+  <!-- Configuraciones de aplicación -->
+  <appSettings>
+    <!-- Configuración de logging -->
+    <add key="EnableLogging" value="true" />
+    <add key="LogLevel" value="INFO" />
+    
+    <!-- Configuración de seguridad -->
+    <add key="SessionTimeout" value="30" />
+    <add key="RequireStrongPasswords" value="true" />
+    <add key="MaxLoginAttempts" value="5" />
+    <add key="LockoutDuration" value="15" />
+    
+    <!-- Configuración de la aplicación -->
+    <add key="ApplicationName" value="Sistema de Gestión de Frutas" />
+    <add key="ApplicationVersion" value="1.0.0" />
+    
+    <!-- Configuración de paginación -->
+    <add key="DefaultPageSize" value="10" />
+    <add key="MaxPageSize" value="100" />
+    
+    <!-- Web Forms compatibility -->
+    <add key="vs:EnableBrowserLink" value="false" />
+  </appSettings>
+
+  <system.web>
+    <!-- Configuración de compilación consolidada -->
+    <compilation debug="true" targetFramework="4.8" />
+    
+    <!-- Configuración de runtime HTTP -->
+    <httpRuntime targetFramework="4.8" maxRequestLength="5120" executionTimeout="90" />
+    
+    <!-- Configuración de sesiones -->
+    <sessionState mode="InProc" 
+                  timeout="30" 
+                  cookieless="false" 
+                  cookieName="ASP.NET_SessionId"
+                  cookieTimeout="30" 
+                  regenerateExpiredSessionId="true" />
+    
+    <!-- Configuración de autenticación -->
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/Login.aspx" 
+             defaultUrl="~/Default.aspx" 
+             timeout="30" 
+             name=".ASPXAUTH" 
+             slidingExpiration="true" 
+             requireSSL="false" 
+             cookieless="UseCookies" />
+    </authentication>
+    
+    <!-- Autorización -->
+    <authorization>
+      <allow users="*" />
+    </authorization>
+    
+    <!-- Páginas y controles -->
+    <pages>
+    </pages>
+    
+    <!-- Configuración de errores personalizados -->
+    <customErrors mode="RemoteOnly" defaultRedirect="~/Error.aspx">
+      <error statusCode="404" redirect="~/NotFound.aspx" />
+      <error statusCode="500" redirect="~/Error.aspx" />
+    </customErrors>
+    
+    <!-- Configuración de traza -->
+    <trace enabled="false" pageOutput="false" requestLimit="100" localOnly="true" />
+    
+    <!-- Configuración de globalization -->
+    <globalization culture="es-ES" uiCulture="es-ES" />
+  </system.web>
+
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    
+    <!-- Handlers -->
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <remove name="OPTIONSVerbHandler" />
+      <remove name="TRACEVerbHandler" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+    </handlers>
+    
+    <!-- Configuración de seguridad -->
+    <httpProtocol>
+      <customHeaders>
+        <add name="X-Content-Type-Options" value="nosniff" />
+        <add name="X-Frame-Options" value="DENY" />
+        <add name="X-XSS-Protection" value="1; mode=block" />
+      </customHeaders>
+    </httpProtocol>
+    
+    <!-- Configuración de compresión -->
+    <urlCompression doDynamicCompression="true" doStaticCompression="true" />
+    
+    <!-- Configuración de caché estático -->
+    <staticContent>
+      <clientCache cacheControlMode="UseMaxAge" cacheControlMaxAge="7.00:00:00" />
+    </staticContent>
+    
+    <!-- Configuración de módulos -->
+    <modules>
+      <add name="SessionStateModule" type="System.Web.SessionState.SessionStateModule" />
+    </modules>
+  </system.webServer>
+
+  <!-- Configuración de Entity Framework -->
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="mssqllocaldb" />
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+
+  <!-- Runtime assembly binding -->
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Antlr3.Runtime" publicKeyToken="eb42632606e9261f" />
+        <bindingRedirect oldVersion="0.0.0.0-3.5.0.2" newVersion="3.5.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Web.Infrastructure" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-2.0.0.0" newVersion="2.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" />
+        <bindingRedirect oldVersion="0.0.0.0-13.0.0.0" newVersion="13.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-1.6.5135.21930" newVersion="1.6.5135.21930" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="EntityFramework" publicKeyToken="b77a5c561934e089" />
+        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+
+  <!-- Configuración del compilador -->
+  <system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701" />
+      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
+    </compilers>
+  </system.codedom>
+</configuration>

@@ -1,0 +1,127 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using frutas.Models;
+
+namespace frutas.Repositories
+{
+    /// <summary>
+    /// Interfaz genérica para repositorios
+    /// Implementa el patrón Repository con operaciones CRUD básicas
+    /// </summary>
+    /// <typeparam name="T">Tipo de entidad que hereda de BaseEntity</typeparam>
+    public interface IRepository<T> where T : BaseEntity
+    {
+        // Operaciones de consulta
+        T ObtenerPorId(int id);
+        IEnumerable<T> ObtenerTodos();
+        IEnumerable<T> ObtenerActivos();
+        IEnumerable<T> Buscar(Expression<Func<T, bool>> predicado);
+        T BuscarUno(Expression<Func<T, bool>> predicado);
+        bool Existe(int id);
+        bool Existe(Expression<Func<T, bool>> predicado);
+        int Contar();
+        int Contar(Expression<Func<T, bool>> predicado);
+
+        // Operaciones de modificación
+        T Agregar(T entidad);
+        void Actualizar(T entidad);
+        void Eliminar(int id);
+        void EliminarFisico(T entidad);
+        void EliminarFisico(int id);
+
+        // Operaciones por lotes
+        void AgregarRango(IEnumerable<T> entidades);
+        void ActualizarRango(IEnumerable<T> entidades);
+        void EliminarRango(IEnumerable<T> entidades);
+
+        // Operaciones con paginación
+        IEnumerable<T> ObtenerPaginado(int pagina, int tamañoPagina);
+        IEnumerable<T> ObtenerPaginado(int pagina, int tamañoPagina, Expression<Func<T, bool>> predicado);
+        IEnumerable<T> ObtenerPaginadoOrdenado<TKey>(int pagina, int tamañoPagina, 
+            Expression<Func<T, TKey>> ordenarPor, bool descendente = false);
+        IEnumerable<T> ObtenerPaginadoOrdenado<TKey>(int pagina, int tamañoPagina, 
+            Expression<Func<T, bool>> predicado, Expression<Func<T, TKey>> ordenarPor, bool descendente = false);
+
+        // Guardar cambios
+        void GuardarCambios();
+    }
+
+    /// <summary>
+    /// Interfaz específica para el repositorio de usuarios
+    /// Extiende IRepository con operaciones específicas para usuarios
+    /// </summary>
+    public interface IUsuarioRepository : IRepository<Usuario>
+    {
+        Usuario ObtenerPorUsername(string username);
+        Usuario ObtenerPorEmail(string email);
+        bool ExisteUsername(string username);
+        bool ExisteEmail(string email);
+        IEnumerable<Usuario> ObtenerPorRol(string rol);
+        void BloquearUsuario(int usuarioId, DateTime fechaBloqueo);
+        void DesbloquearUsuario(int usuarioId);
+        void ActualizarUltimoLogin(int usuarioId);
+        void ActualizarIntentosFallidos(int usuarioId, int intentos);
+        IEnumerable<Usuario> ObtenerUsuariosBloqueados();
+        IEnumerable<Usuario> ObtenerUsuariosInactivos(int diasInactividad);
+    }
+
+    /// <summary>
+    /// Interfaz específica para el repositorio de frutas
+    /// Extiende IRepository con operaciones específicas para frutas
+    /// </summary>
+    public interface IFrutaRepository : IRepository<Fruta>
+    {
+        IEnumerable<Fruta> BuscarPorNombre(string nombre);
+        IEnumerable<Fruta> ObtenerPorCategoria(string categoria);
+        IEnumerable<Fruta> ObtenerPorPais(string pais);
+        IEnumerable<Fruta> ObtenerOrganicas();
+        IEnumerable<Fruta> ObtenerDisponibles();
+        IEnumerable<Fruta> ObtenerPorRangoPrecio(decimal precioMin, decimal precioMax);
+        IEnumerable<Fruta> ObtenerConStockBajo(int stockMinimo = 10);
+        IEnumerable<Fruta> ObtenerProximasAVencer(int dias = 7);
+        decimal CalcularValorInventario();
+        IEnumerable<string> ObtenerCategorias();
+        IEnumerable<string> ObtenerPaises();
+        IEnumerable<string> ObtenerTemporadas();
+        void ActualizarStock(int frutaId, int nuevoStock);
+        void ReducirStock(int frutaId, int cantidad);
+    }
+
+    /// <summary>
+    /// Interfaz específica para el repositorio de logs
+    /// Extiende operaciones básicas con funcionalidades específicas de auditoría
+    /// </summary>
+    public interface ILogRepository
+    {
+        void Agregar(Log log);
+        IEnumerable<Log> ObtenerPorUsuario(int usuarioId);
+        IEnumerable<Log> ObtenerPorFecha(DateTime fecha);
+        IEnumerable<Log> ObtenerPorRangoFecha(DateTime fechaInicio, DateTime fechaFin);
+        IEnumerable<Log> ObtenerPorAccion(string accion);
+        IEnumerable<Log> ObtenerPorTabla(string tabla);
+        IEnumerable<Log> ObtenerPorSeveridad(string severidad);
+        IEnumerable<Log> ObtenerErrores();
+        IEnumerable<Log> ObtenerPaginado(int pagina, int tamañoPagina);
+        void LimpiarLogsAntiguos(int diasAMantener = 90);
+        int ContarPorSeveridad(string severidad);
+        int ContarPorFecha(DateTime fecha);
+        void GuardarCambios();
+    }
+
+    /// <summary>
+    /// Interfaz específica para el repositorio de API Keys
+    /// </summary>
+    public interface IApiKeyRepository : IRepository<ApiKey>
+    {
+        ApiKey ObtenerPorKeyValue(string keyValue);
+        IEnumerable<ApiKey> ObtenerPorUsuario(int usuarioId);
+        IEnumerable<ApiKey> ObtenerActivas();
+        IEnumerable<ApiKey> ObtenerVencidas();
+        void RegistrarUso(string keyValue);
+        void RevocarApiKey(int apiKeyId);
+        void RevocarApiKeysPorUsuario(int usuarioId);
+        bool ValidarApiKey(string keyValue, string ip = null);
+        void LimpiarApiKeysVencidas();
+    }
+}

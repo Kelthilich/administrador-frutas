@@ -1,0 +1,444 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using frutas.DTOs;
+using frutas.Security;
+using frutas.Services;
+
+namespace frutas.Admin
+{
+    public partial class Logs : Page
+    {
+        private readonly LogService _logService;
+
+        private int PaginaActual
+        {
+            get { return ViewState["PaginaActual"] != null ? (int)ViewState["PaginaActual"] : 1; }
+            set { ViewState["PaginaActual"] = value; }
+        }
+
+        private int TotalPaginas
+        {
+            get { return ViewState["TotalPaginas"] != null ? (int)ViewState["TotalPaginas"] : 1; }
+            set { ViewState["TotalPaginas"] = value; }
+        }
+
+        public Logs()
+        {
+            _logService = new LogService();
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Verificar autenticación y permisos de administrador
+            SiteMaster.RequireLogin();
+            
+            if (!SessionHelper.EsAdministrador)
+            {
+                Response.Redirect("~/Default.aspx");
+                return;
+            }
+
+            if (!IsPostBack)
+            {
+                ConfigurarFechasPorDefecto();
+                CargarAcciones();
+                CargarLogs();
+                CargarEstadisticas();
+            }
+        }
+
+        /// <summary>
+        /// Configura las fechas por defecto (últimos 7 días)
+        /// </summary>
+        private void ConfigurarFechasPorDefecto()
+        {
+            txtFechaHasta.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            txtFechaDesde.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
+        }
+
+        /// <summary>
+        /// Carga las acciones disponibles en el dropdown
+        /// </summary>
+        private void CargarAcciones()
+        {
+            try
+            {
+                var acciones = new List<string>
+                {
+                    "LOGIN_SUCCESS", "LOGIN_FAILED", "LOGOUT",
+                    "USER_CREATED", "USER_UPDATED", "USER_BLOCKED",
+                    "FRUTA_CREATED", "FRUTA_UPDATED", "FRUTA_DELETED",
+                    "PASSWORD_CHANGED", "REGISTER_SUCCESS"
+                };
+
+                foreach (var accion in acciones)
+                {
+                    ddlAccion.Items.Add(new ListItem(FormatearAccion(accion), accion));
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarAlerta($"Error cargando acciones: {ex.Message}", "warning");
+            }
+        }
+
+        /// <summary>
+        /// Carga los logs según los filtros
+        /// </summary>
+        private void CargarLogs()
+        {
+            try
+            {
+                var filtro = CrearFiltro();
+                var resultado = _logService.ObtenerLogs(filtro);
+
+                if (resultado.Exitoso)
+                {
+                    var data = resultado.Data;
+                    
+                    gvLogs.DataSource = data.Logs;
+                    gvLogs.DataBind();
+
+                    ActualizarPaginacion(data);
+                }
+                else
+                {
+                    MostrarAlerta($"Error cargando logs: {resultado.Mensaje}", "danger");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarAlerta($"Error interno: {ex.Message}", "danger");
+            }
+        }
+
+        /// <summary>
+        /// Carga las estadísticas de logs
+        /// </summary>
+        private void CargarEstadisticas()
+        {
+            try
+            {
+                var filtro = CrearFiltro();
+                filtro.TamañoPagina = int.MaxValue; // Para obtener todos los logs para estadísticas
+                
+                var resultado = _logService.ObtenerLogs(filtro);
+
+                if (resultado.Exitoso)
+                {
+                    var logs = resultado.Data.Logs.ToList();
+                    
+                    lblTotalLogs.Text = logs.Count.ToString();
+                    lblLogsExitosos.Text = logs.Count(l => l.Exitoso).ToString();
+                    lblLogsAdvertencia.Text = logs.Count(l => l.Severidad == "WARNING").ToString();
+                    lblLogsError.Text = logs.Count(l => l.Severidad == "ERROR" || l.Severidad == "CRITICAL").ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarAlerta($"Error cargando estadísticas: {ex.Message}", "warning");
+            }
+        }
+
+        /// <summary>
+        /// Crea el filtro de búsqueda
+        /// </summary>
+        private LogFiltroDto CrearFiltro()
+        {
+            DateTime? fechaDesde = null;
+            DateTime? fechaHasta = null;
+
+            if (DateTime.TryParse(txtFechaDesde.Text, out DateTime desde))
+                fechaDesde = desde.Date;
+
+            if (DateTime.TryParse(txtFechaHasta.Text, out DateTime hasta))
+                fechaHasta = hasta.Date.AddDays(1).AddSeconds(-1); // Hasta el final del día
+
+            return new LogFiltroDto
+            {
+                Severidad = string.IsNullOrEmpty(ddlSeveridad.SelectedValue) ? null : ddlSeveridad.SelectedValue,
+                Accion = string.IsNullOrEmpty(ddlAccion.SelectedValue) ? null : ddlAccion.SelectedValue,
+                Username = string.IsNullOrWhiteSpace(txtUsuario.Text) ? null : txtUsuario.Text.Trim(),
+                FechaDesde = fechaDesde,
+                FechaHasta = fechaHasta,
+                Pagina = PaginaActual,
+                TamañoPagina = int.Parse(ddlTamañoPagina.SelectedValue)
+            };
+        }
+
+        /// <summary>
+        /// Actualiza la información de paginación
+        /// </summary>
+        private void ActualizarPaginacion(LogListaDto data)
+        {
+            TotalPaginas = (int)Math.Ceiling((double)data.TotalRegistros / data.TamañoPagina);
+            
+            lblPaginaActual.Text = data.PaginaActual.ToString();
+            lblTotalPaginas.Text = TotalPaginas.ToString();
+            lblTotalPaginasFooter.Text = TotalPaginas.ToString();
+            lblTotalRegistros.Text = data.TotalRegistros.ToString();
+            txtPagina.Text = data.PaginaActual.ToString();
+
+            // Habilitar/deshabilitar botones de navegación
+            btnPrimera.Enabled = btnAnterior.Enabled = data.PaginaActual > 1;
+            btnSiguiente.Enabled = btnUltima.Enabled = data.PaginaActual < TotalPaginas;
+        }
+
+        #region Eventos de Controles
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            PaginaActual = 1;
+            CargarLogs();
+            CargarEstadisticas();
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            ddlSeveridad.SelectedIndex = 0;
+            ddlAccion.SelectedIndex = 0;
+            txtUsuario.Text = string.Empty;
+            ConfigurarFechasPorDefecto();
+            PaginaActual = 1;
+            CargarLogs();
+            CargarEstadisticas();
+        }
+
+        protected void ddlTamañoPagina_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PaginaActual = 1;
+            CargarLogs();
+        }
+
+        #endregion
+
+        #region Eventos de Paginación
+
+        protected void btnPrimera_Click(object sender, EventArgs e)
+        {
+            PaginaActual = 1;
+            CargarLogs();
+        }
+
+        protected void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (PaginaActual > 1)
+            {
+                PaginaActual--;
+                CargarLogs();
+            }
+        }
+
+        protected void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (PaginaActual < TotalPaginas)
+            {
+                PaginaActual++;
+                CargarLogs();
+            }
+        }
+
+        protected void btnUltima_Click(object sender, EventArgs e)
+        {
+            PaginaActual = TotalPaginas;
+            CargarLogs();
+        }
+
+        protected void txtPagina_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtPagina.Text, out int pagina) && pagina >= 1 && pagina <= TotalPaginas)
+            {
+                PaginaActual = pagina;
+                CargarLogs();
+            }
+            else
+            {
+                txtPagina.Text = PaginaActual.ToString();
+            }
+        }
+
+        #endregion
+
+        #region Eventos del GridView
+
+        protected void gvLogs_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var log = (LogDto)e.Row.DataItem;
+                
+                // Aplicar estilos según la severidad
+                switch (log.Severidad?.ToUpper())
+                {
+                    case "ERROR":
+                    case "CRITICAL":
+                        e.Row.CssClass += " table-danger";
+                        break;
+                    case "WARNING":
+                        e.Row.CssClass += " table-warning";
+                        break;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Métodos Helper
+
+        /// <summary>
+        /// Obtiene la clase CSS para la severidad
+        /// </summary>
+        protected string GetSeveridadCssClass(string severidad)
+        {
+            switch (severidad?.ToUpper())
+            {
+                case "INFO":
+                    return "badge badge-severity-info";
+                case "WARNING":
+                    return "badge badge-severity-warning";
+                case "ERROR":
+                    return "badge badge-severity-error";
+                case "CRITICAL":
+                    return "badge badge-severity-critical";
+                default:
+                    return "badge badge-secondary";
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el texto amigable para la severidad
+        /// </summary>
+        protected string GetSeveridadTexto(string severidad)
+        {
+            switch (severidad?.ToUpper())
+            {
+                case "INFO":
+                    return "Info";
+                case "WARNING":
+                    return "Advertencia";
+                case "ERROR":
+                    return "Error";
+                case "CRITICAL":
+                    return "Crítico";
+                default:
+                    return severidad ?? "N/A";
+            }
+        }
+
+        /// <summary>
+        /// Trunca un texto a la longitud especificada
+        /// </summary>
+        protected string TruncateText(string text, int maxLength)
+        {
+            if (string.IsNullOrEmpty(text))
+                return "N/A";
+
+            if (text.Length <= maxLength)
+                return text;
+
+            return text.Substring(0, maxLength) + "...";
+        }
+
+        /// <summary>
+        /// Formatea el nombre de la acción para mostrar
+        /// </summary>
+        private string FormatearAccion(string accion)
+        {
+            return accion.Replace("_", " ").ToTitleCase();
+        }
+
+        /// <summary>
+        /// Muestra una alerta al usuario
+        /// </summary>
+        private void MostrarAlerta(string mensaje, string tipo)
+        {
+            var master = this.Master as SiteMaster;
+            master?.MostrarAlerta(mensaje, tipo);
+        }
+
+        #endregion
+    }
+
+    // Clase auxiliar para LogService (simplificada)
+    public class LogService
+    {
+        public ResponseDto<LogListaDto> ObtenerLogs(LogFiltroDto filtro)
+        {
+            // Implementación simplificada que devuelve logs de ejemplo
+            var logs = new List<LogDto>();
+            
+            // Aquí normalmente consultarías la base de datos
+            // Por ahora devolvemos una lista vacía
+            
+            var resultado = new LogListaDto
+            {
+                Logs = logs,
+                TotalRegistros = 0,
+                PaginaActual = filtro.Pagina,
+                TamañoPagina = filtro.TamañoPagina
+            };
+
+            return ResponseDto<LogListaDto>.Exito(resultado);
+        }
+    }
+
+    // DTOs simplificados para logs
+    public class LogDto
+    {
+        public int Id { get; set; }
+        public int? UsuarioId { get; set; }
+        public string Username { get; set; }
+        public string Accion { get; set; }
+        public string Tabla { get; set; }
+        public int? RegistroId { get; set; }
+        public string DetalleAntes { get; set; }
+        public string DetalleDepues { get; set; }
+        public DateTime Fecha { get; set; }
+        public string IP { get; set; }
+        public string UserAgent { get; set; }
+        public string Severidad { get; set; }
+        public bool Exitoso { get; set; }
+    }
+
+    public class LogFiltroDto
+    {
+        public string Severidad { get; set; }
+        public string Accion { get; set; }
+        public string Username { get; set; }
+        public DateTime? FechaDesde { get; set; }
+        public DateTime? FechaHasta { get; set; }
+        public int Pagina { get; set; } = 1;
+        public int TamañoPagina { get; set; } = 25;
+    }
+
+    public class LogListaDto
+    {
+        public List<LogDto> Logs { get; set; } = new List<LogDto>();
+        public int TotalRegistros { get; set; }
+        public int PaginaActual { get; set; }
+        public int TamañoPagina { get; set; }
+    }
+}
+
+// Extensión para ToTitleCase
+public static class StringExtensions
+{
+    public static string ToTitleCase(this string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return input;
+
+        var words = input.Split(' ');
+        for (int i = 0; i < words.Length; i++)
+        {
+            if (words[i].Length > 0)
+            {
+                words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
+            }
+        }
+        return string.Join(" ", words);
+    }
+}

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <connectionStrings>
+    <add name="DefaultConnection" 
+         connectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FrutasDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;" 
+         providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  
+  <appSettings>
+    <add key="ApplicationName" value="Sistema de Gestión de Frutas" />
+    <add key="DefaultPageSize" value="10" />
+    <!-- Desactivar optimización automática -->
+    <add key="vs:EnableBrowserLink" value="false" />
+    <add key="webpages:Enabled" value="false" />
+  </appSettings>
+
+  <system.web>
+    <compilation debug="true" targetFramework="4.8" />
+    <httpRuntime targetFramework="4.8" />
+    
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/Login.aspx" defaultUrl="~/Default.aspx" timeout="30" />
+    </authentication>
+    
+    <authorization>
+      <allow users="*" />
+    </authorization>
+    
+    <customErrors mode="Off" />
+    
+    <!-- Desactivar módulos problemáticos -->
+    <httpModules>
+      <remove name="BundleModule" />
+    </httpModules>
+  </system.web>
+  
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules>
+      <remove name="BundleModule" />
+    </modules>
+  </system.webServer>
+</configuration>

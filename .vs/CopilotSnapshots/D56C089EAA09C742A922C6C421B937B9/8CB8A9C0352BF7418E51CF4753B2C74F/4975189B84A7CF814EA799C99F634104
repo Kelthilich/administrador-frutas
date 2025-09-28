@@ -1,0 +1,230 @@
+﻿# Plan de Desarrollo - Sistema de Gestión de Frutas
+## .NET Framework 4.8 con Arquitectura en Capas
+
+### Descripción General
+Este proyecto implementará un sistema completo de gestión de frutas utilizando .NET Framework 4.8 y C# 7.3, siguiendo una arquitectura en capas con separación de responsabilidades.
+
+### Arquitectura de la Solución
+
+#### 1. **slnEntidades** (Class Library)
+- **Propósito**: Contiene las entidades del dominio
+- **Contenido**:
+  - `Usuario.cs` - Entidad para autenticación
+  - `Fruta.cs` - Entidad principal del negocio
+  - `Log.cs` - Entidad para auditoría
+  - `BaseEntity.cs` - Clase base con propiedades comunes
+
+#### 2. **slnDatos** (Class Library)
+- **Propósito**: Capa de acceso a datos con patrón Repository
+- **Contenido**:
+  - `Context/FrutasContext.cs` - Contexto de Entity Framework
+  - `Repositories/IRepository.cs` - Interfaz genérica
+  - `Repositories/UsuarioRepository.cs`
+  - `Repositories/FrutaRepository.cs`
+  - `Repositories/LogRepository.cs`
+  - `Migrations/` - Migraciones de base de datos
+  - `Connection/SqlConnectionHelper.cs`
+
+#### 3. **slnControl** (Class Library)
+- **Propósito**: Lógica de negocio y servicios
+- **Contenido**:
+  - `Services/UsuarioService.cs` - Lógica de autenticación
+  - `Services/FrutaService.cs` - Lógica CRUD de frutas
+  - `Services/LogService.cs` - Gestión de logs
+  - `Security/PasswordHelper.cs` - Encriptación de contraseñas
+  - `Security/JwtHelper.cs` - Manejo de tokens
+  - `Validators/` - Validaciones de negocio
+  - `DTOs/` - Data Transfer Objects
+
+#### 4. **slnFrutas** (Web Application)
+- **Propósito**: Aplicación web principal (UI)
+- **Contenido**:
+  - `Login.aspx` - Página de inicio de sesión
+  - `Register.aspx` - Página de registro
+  - `Default.aspx` - Dashboard principal
+  - `Frutas/` - Páginas CRUD de frutas
+    - `ListaFrutas.aspx`
+    - `AgregarFruta.aspx`
+    - `EditarFruta.aspx`
+  - `Master Pages/` - Plantillas maestras
+  - `App_Code/` - Clases de código
+  - `Scripts/` - JavaScript y jQuery
+  - `Styles/` - CSS y estilos
+
+#### 5. **grafico** (Windows Forms Application)
+- **Propósito**: Aplicación de escritorio para reportes y gráficos
+- **Contenido**:
+  - `MainForm.cs` - Formulario principal
+  - `ReporteFrutas.cs` - Generación de reportes
+  - `GraficoEstadisticas.cs` - Visualización de datos
+  - `ConfiguracionDB.cs` - Configuración de conexión
+
+### Tecnologías y Patrones
+
+#### Tecnologías Principales
+- **.NET Framework 4.8**
+- **C# 7.3**
+- **ASP.NET Web Forms**
+- **Entity Framework 6.x**
+- **SQL Server**
+- **Windows Forms**
+- **Chart Controls**
+
+#### Patrones de Diseño
+- **Repository Pattern** - Acceso a datos
+- **Service Layer Pattern** - Lógica de negocio
+- **DTO Pattern** - Transferencia de datos
+- **Dependency Injection** - Inyección de dependencias
+- **MVC Pattern** (parcial en Web Forms)
+
+#### Características Técnicas
+- **Autenticación**: Sistema de login/registro con hash de contraseñas
+- **Autorización**: Control de acceso basado en roles
+- **Logging**: Registro de operaciones en base de datos
+- **Validaciones**: Client-side y server-side
+- **Responsive Design**: Bootstrap para UI web
+- **Error Handling**: Manejo centralizado de errores
+- **Configuration**: App.config y Web.config
+
+### Base de Datos
+
+#### Tablas Principales
+```sql
+-- Tabla Usuarios
+CREATE TABLE Usuarios (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Username NVARCHAR(50) UNIQUE NOT NULL,
+    Email NVARCHAR(100) UNIQUE NOT NULL,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Salt NVARCHAR(255) NOT NULL,
+    FechaCreacion DATETIME2 DEFAULT GETDATE(),
+    Activo BIT DEFAULT 1
+);
+
+-- Tabla Frutas
+CREATE TABLE Frutas (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    Descripcion NVARCHAR(500),
+    Precio DECIMAL(10,2) NOT NULL,
+    Stock INT NOT NULL,
+    FechaCreacion DATETIME2 DEFAULT GETDATE(),
+    FechaModificacion DATETIME2,
+    UsuarioCreacion INT FOREIGN KEY REFERENCES Usuarios(Id),
+    UsuarioModificacion INT FOREIGN KEY REFERENCES Usuarios(Id),
+    Activo BIT DEFAULT 1
+);
+
+-- Tabla Logs
+CREATE TABLE Logs (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UsuarioId INT FOREIGN KEY REFERENCES Usuarios(Id),
+    Accion NVARCHAR(100) NOT NULL,
+    Tabla NVARCHAR(50) NOT NULL,
+    RegistroId INT,
+    DetalleAntes NVARCHAR(MAX),
+    DetalleDepues NVARCHAR(MAX),
+    Fecha DATETIME2 DEFAULT GETDATE(),
+    IP NVARCHAR(45)
+);
+```
+
+### Funcionalidades Principales
+
+#### Autenticación y Autorización
+- [x] Registro de usuarios con validaciones
+- [x] Login con encriptación de contraseñas
+- [x] Session management
+- [x] Logout seguro
+
+#### CRUD de Frutas
+- [x] Listar frutas con paginación
+- [x] Agregar nueva fruta
+- [x] Editar fruta existente
+- [x] Eliminar fruta (soft delete)
+- [x] Búsqueda y filtros
+
+#### Logging y Auditoría
+- [x] Registro de todas las operaciones CRUD
+- [x] Seguimiento de cambios
+- [x] Logs de autenticación
+- [x] Información de IP y timestamp
+
+#### Reportes y Gráficos (Aplicación de Escritorio)
+- [x] Gráficos de stock por fruta
+- [x] Reportes de ventas
+- [x] Estadísticas de usuarios
+- [x] Exportación a PDF/Excel
+
+### Fases de Desarrollo
+
+#### Fase 1: Infraestructura Base
+1. Crear estructura de proyectos
+2. Configurar Entity Framework
+3. Crear entidades base
+4. Implementar repositorios
+
+#### Fase 2: Lógica de Negocio
+1. Implementar servicios
+2. Crear validadores
+3. Configurar seguridad
+4. Implementar logging
+
+#### Fase 3: Interfaz Web
+1. Crear master pages
+2. Implementar páginas de autenticación
+3. Desarrollar CRUD de frutas
+4. Aplicar estilos y validaciones
+
+#### Fase 4: Aplicación de Escritorio
+1. Crear formularios Windows Forms
+2. Implementar gráficos
+3. Generar reportes
+4. Configurar conexiones
+
+#### Fase 5: Testing y Deployment
+1. Pruebas unitarias
+2. Pruebas de integración
+3. Configuración de despliegue
+4. Documentación final
+
+### Configuración del Entorno
+
+#### Prerequisitos
+- Visual Studio 2019/2022
+- SQL Server (LocalDB o Express)
+- .NET Framework 4.8 SDK
+- IIS Express
+
+#### Paquetes NuGet Requeridos
+- EntityFramework 6.4.4
+- Microsoft.AspNet.Web.Optimization
+- Bootstrap 4.6.0
+- jQuery 3.6.0
+- System.Data.SqlClient
+- BCrypt.Net-Next (para hashing de contraseñas)
+
+### Mejores Prácticas Implementadas
+
+#### Código
+- Nomenclatura consistente (PascalCase, camelCase)
+- Comentarios XML en métodos públicos
+- Manejo de excepciones centralizado
+- Separación de responsabilidades
+- Principios SOLID
+
+#### Seguridad
+- Hash de contraseñas con salt
+- Validación de entrada
+- Prevención de SQL Injection
+- Control de sesiones
+- Sanitización de datos
+
+#### Performance
+- Lazy loading en Entity Framework
+- Paginación de resultados
+- Caché de datos frecuentes
+- Optimización de consultas
+- Connection pooling
+
+Este plan asegura un aprendizaje completo de .NET Framework 4.8 con ejemplos prácticos y arquitectura profesional.

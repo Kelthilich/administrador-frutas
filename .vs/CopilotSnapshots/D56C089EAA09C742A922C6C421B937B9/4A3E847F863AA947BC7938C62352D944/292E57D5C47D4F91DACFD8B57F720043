@@ -1,0 +1,14 @@
+﻿using System;
+using System.Web;
+
+namespace frutas
+{
+    public class Global : HttpApplication
+    {
+        void Application_Start(object sender, EventArgs e)
+        {
+            // Code that runs on application startup
+            // Configuración básica para .NET Framework 4.8
+        }
+    }
+}
