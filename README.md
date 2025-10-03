@@ -54,7 +54,7 @@ cd administrador-frutas
 
 ### 2. Configurar la Base de Datos
 1. Abrir el proyecto en Visual Studio
-2. Ejecutar el script SQL en `Scripts/CreateDatabase.sql`
+2. Ejecutar el script SQL en `Database/CreateDatabase.sql`
 3. Verificar la cadena de conexión en `Web.config`
 
 ### 3. Ejecutar el proyecto
@@ -83,8 +83,8 @@ frutas/
 ??? Repositories/      # Acceso a datos
 ??? Security/          # Helpers de seguridad
 ??? Services/          # Lógica de negocio
-??? Scripts/           # Scripts SQL
-??? Styles/            # Estilos CSS
+??? Database/          # Scripts SQL
+??? Content/           # Estilos CSS
 ```
 
 ## ?? Funcionalidades Principales
