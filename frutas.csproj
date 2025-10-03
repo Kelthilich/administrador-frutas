@@ -157,11 +157,6 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Documentation\FINAL_EMOJI_REMOVAL.md" />
-    <Content Include="Documentation\FIX_CHECKBOXES_COMPLETE.md" />
-    <Content Include="Documentation\FIX_LOGIN_PARSER_ERROR.md" />
-    <Content Include="Documentation\FIX_CHECKBOX_WIDTH_ISSUE.md" />
-    <Content Include="Documentation\PROJECT_FIXES_SUMMARY.md" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -351,6 +346,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Documentation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />
