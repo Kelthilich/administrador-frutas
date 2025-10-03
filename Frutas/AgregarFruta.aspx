@@ -7,7 +7,7 @@
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h2><i class="fas fa-plus-circle text-success"></i> Agregar Nueva Fruta</h2>
+                        <h2 class="fw-bold"><i class="fas fa-plus-circle text-success"></i> Agregar Nueva Fruta</h2>
                         <p class="text-muted">Complete el formulario para agregar una nueva fruta al inventario</p>
                     </div>
                     <div>
@@ -22,19 +22,19 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card shadow">
-                    <div class="card-header bg-success text-white">
+                    <div class="card-header bg-success text-white py-3">
                         <h5 class="mb-0"><i class="fas fa-apple-alt"></i> Información de la Fruta</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         <div class="row">
                             <!-- Información Básica -->
                             <div class="col-md-6">
-                                <h6 class="text-primary mb-3"><i class="fas fa-info-circle"></i> Información Básica</h6>
+                                <h6 class="text-primary mb-3 fw-bold"><i class="fas fa-info-circle"></i> Información Básica</h6>
                                 
                                 <!-- Nombre -->
-                                <div class="form-group">
-                                    <label for="txtNombre">
-                                        <i class="fas fa-apple-alt"></i> Nombre de la Fruta *
+                                <div class="mb-3">
+                                    <label for="txtNombre" class="form-label fw-bold">
+                                        <i class="fas fa-apple-alt text-success"></i> Nombre de la Fruta *
                                     </label>
                                     <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" 
                                                placeholder="Ej: Manzana Roja, Banana Premium..." MaxLength="100" />
@@ -50,9 +50,9 @@
                                 </div>
 
                                 <!-- Descripción -->
-                                <div class="form-group">
-                                    <label for="txtDescripcion">
-                                        <i class="fas fa-align-left"></i> Descripción
+                                <div class="mb-3">
+                                    <label for="txtDescripcion" class="form-label fw-bold">
+                                        <i class="fas fa-align-left text-success"></i> Descripción
                                     </label>
                                     <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" Rows="3"
                                                CssClass="form-control" placeholder="Descripción detallada de la fruta..." 
@@ -61,12 +61,12 @@
                                 </div>
 
                                 <!-- Categoría -->
-                                <div class="form-group">
-                                    <label for="ddlCategoria">
-                                        <i class="fas fa-tags"></i> Categoría *
+                                <div class="mb-3">
+                                    <label for="ddlCategoria" class="form-label fw-bold">
+                                        <i class="fas fa-tags text-success"></i> Categoría *
                                     </label>
                                     <div class="input-group">
-                                        <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control">
+                                        <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select">
                                             <asp:ListItem Value="" Text="-- Seleccionar Categoría --" />
                                             <asp:ListItem Value="Frutas de Pepita" Text="Frutas de Pepita" />
                                             <asp:ListItem Value="Frutas Tropicales" Text="Frutas Tropicales" />
@@ -77,11 +77,9 @@
                                             <asp:ListItem Value="Frutos Secos" Text="Frutos Secos" />
                                             <asp:ListItem Value="Otra" Text="Otra" />
                                         </asp:DropDownList>
-                                        <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalCategoria">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalCategoria">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
                                     </div>
                                     <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" 
                                                               ControlToValidate="ddlCategoria"
@@ -90,11 +88,11 @@
                                 </div>
 
                                 <!-- País de Origen -->
-                                <div class="form-group">
-                                    <label for="ddlPaisOrigen">
-                                        <i class="fas fa-globe"></i> País de Origen
+                                <div class="mb-3">
+                                    <label for="ddlPaisOrigen" class="form-label fw-bold">
+                                        <i class="fas fa-globe text-success"></i> País de Origen
                                     </label>
-                                    <asp:DropDownList ID="ddlPaisOrigen" runat="server" CssClass="form-control">
+                                    <asp:DropDownList ID="ddlPaisOrigen" runat="server" CssClass="form-select">
                                         <asp:ListItem Value="" Text="-- Seleccionar País --" />
                                         <asp:ListItem Value="Argentina" Text="Argentina" />
                                         <asp:ListItem Value="Brasil" Text="Brasil" />
@@ -114,17 +112,15 @@
 
                             <!-- Información Comercial -->
                             <div class="col-md-6">
-                                <h6 class="text-primary mb-3"><i class="fas fa-dollar-sign"></i> Información Comercial</h6>
+                                <h6 class="text-primary mb-3 fw-bold"><i class="fas fa-dollar-sign"></i> Información Comercial</h6>
                                 
                                 <!-- Precio -->
-                                <div class="form-group">
-                                    <label for="txtPrecio">
-                                        <i class="fas fa-dollar-sign"></i> Precio por Unidad *
+                                <div class="mb-3">
+                                    <label for="txtPrecio" class="form-label fw-bold">
+                                        <i class="fas fa-dollar-sign text-success"></i> Precio por Unidad *
                                     </label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">$</span>
-                                        </div>
+                                        <span class="input-group-text">$</span>
                                         <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control text-end" 
                                                    placeholder="0.00" TextMode="Number" step="0.01" min="0.01" />
                                     </div>
@@ -140,16 +136,14 @@
                                 </div>
 
                                 <!-- Stock -->
-                                <div class="form-group">
-                                    <label for="txtStock">
-                                        <i class="fas fa-boxes"></i> Stock Inicial *
+                                <div class="mb-3">
+                                    <label for="txtStock" class="form-label fw-bold">
+                                        <i class="fas fa-boxes text-success"></i> Stock Inicial *
                                     </label>
                                     <div class="input-group">
                                         <asp:TextBox ID="txtStock" runat="server" CssClass="form-control text-end" 
                                                    placeholder="0" TextMode="Number" min="0" />
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">unidades</span>
-                                        </div>
+                                        <span class="input-group-text">unidades</span>
                                     </div>
                                     <asp:RequiredFieldValidator ID="rfvStock" runat="server" 
                                                               ControlToValidate="txtStock"
@@ -163,11 +157,11 @@
                                 </div>
 
                                 <!-- Temporada -->
-                                <div class="form-group">
-                                    <label for="ddlTemporada">
-                                        <i class="fas fa-calendar-alt"></i> Temporada
+                                <div class="mb-3">
+                                    <label for="ddlTemporada" class="form-label fw-bold">
+                                        <i class="fas fa-calendar-alt text-success"></i> Temporada
                                     </label>
-                                    <asp:DropDownList ID="ddlTemporada" runat="server" CssClass="form-control">
+                                    <asp:DropDownList ID="ddlTemporada" runat="server" CssClass="form-select">
                                         <asp:ListItem Value="" Text="-- Seleccionar Temporada --" />
                                         <asp:ListItem Value="Primavera" Text="Primavera" />
                                         <asp:ListItem Value="Verano" Text="Verano" />
@@ -178,9 +172,9 @@
                                 </div>
 
                                 <!-- Fecha de Vencimiento -->
-                                <div class="form-group">
-                                    <label for="txtFechaVencimiento">
-                                        <i class="fas fa-calendar-times"></i> Fecha de Vencimiento
+                                <div class="mb-3">
+                                    <label for="txtFechaVencimiento" class="form-label fw-bold">
+                                        <i class="fas fa-calendar-times text-success"></i> Fecha de Vencimiento
                                     </label>
                                     <asp:TextBox ID="txtFechaVencimiento" runat="server" CssClass="form-control" 
                                                TextMode="Date" />
@@ -193,10 +187,10 @@
                                 </div>
 
                                 <!-- Es Orgánica -->
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <div class="form-check">
                                         <asp:CheckBox ID="chkEsOrganica" runat="server" CssClass="form-check-input" />
-                                        <label class="form-check-label" for="chkEsOrganica">
+                                        <label class="form-check-label" for="<%= chkEsOrganica.ClientID %>">
                                             <i class="fas fa-leaf text-success"></i> Es Fruta Orgánica
                                         </label>
                                     </div>
@@ -209,16 +203,16 @@
                         <div class="row mt-4">
                             <div class="col-12">
                                 <div class="alert alert-info">
-                                    <h6><i class="fas fa-eye"></i> Vista Previa</h6>
+                                    <h6 class="fw-bold"><i class="fas fa-eye"></i> Vista Previa</h6>
                                     <div class="row">
                                         <div class="col-md-8">
                                             <strong id="previewNombre">Nombre de la Fruta</strong>
                                             <br>
                                             <span class="text-muted" id="previewDescripcion">Descripción de la fruta</span>
                                             <br>
-                                            <span class="badge badge-secondary" id="previewCategoria">Categoría</span>
-                                            <span class="badge badge-info" id="previewPais">País</span>
-                                            <span class="badge badge-success" id="previewOrganica" style="display:none;">Orgánica</span>
+                                            <span class="badge bg-secondary" id="previewCategoria">Categoría</span>
+                                            <span class="badge bg-info" id="previewPais">País</span>
+                                            <span class="badge bg-success" id="previewOrganica" style="display:none;"><i class="fas fa-leaf"></i> Orgánica</span>
                                         </div>
                                         <div class="col-md-4 text-end">
                                             <h5 class="text-success mb-1">$<span id="previewPrecio">0.00</span></h5>
@@ -253,25 +247,29 @@
     </div>
 
     <!-- Modal para Nueva Categoría -->
-    <div class="modal fade" id="modalCategoria" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="modalCategoriaLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Agregar Nueva Categoría</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="modalCategoriaLabel">
+                        <i class="fas fa-plus-circle"></i> Agregar Nueva Categoría
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="txtNuevaCategoria">Nombre de la Categoría:</label>
+                    <div class="mb-3">
+                        <label for="txtNuevaCategoria" class="form-label fw-bold">Nombre de la Categoría:</label>
                         <input type="text" id="txtNuevaCategoria" class="form-control" 
                                placeholder="Ej: Frutas de Verano" maxlength="50" />
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="agregarCategoria()">Agregar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="agregarCategoria()">
+                        <i class="fas fa-check"></i> Agregar
+                    </button>
                 </div>
             </div>
         </div>
@@ -280,15 +278,6 @@
 
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptsContent" runat="server">
     <style>
-        .form-group label {
-            font-weight: 600;
-            color: #495057;
-        }
-        
-        .required {
-            color: #dc3545;
-        }
-        
         .input-group-text {
             background-color: #e9ecef;
             border-color: #ced4da;
@@ -298,10 +287,6 @@
             background-color: #f8f9fa;
             border-color: #dee2e6;
             color: #495057;
-        }
-        
-        .preview-item {
-            transition: all 0.3s ease;
         }
     </style>
 
@@ -349,16 +334,6 @@
                 }
             });
 
-            // Validación en tiempo real del precio
-            $('#<%= txtPrecio.ClientID %>').on('input', function() {
-                var precio = parseFloat($(this).val());
-                if (precio < 0.01) {
-                    $(this).addClass('is-invalid');
-                } else {
-                    $(this).removeClass('is-invalid').addClass('is-valid');
-                }
-            });
-
             // Calculadora de valor total
             $('#<%= txtPrecio.ClientID %>, #<%= txtStock.ClientID %>').on('input', function() {
                 var precio = parseFloat($('#<%= txtPrecio.ClientID %>').val()) || 0;
@@ -367,7 +342,7 @@
                 
                 if (total > 0) {
                     if (!$('#valorTotal').length) {
-                        $('#previewStock').parent().after('<br><small class="text-success">Valor total: $<span id="valorTotal">' + total.toFixed(2) + '</span></small>');
+                        $('#previewStock').parent().after('<br><small class="text-success fw-bold">Valor total: $<span id="valorTotal">' + total.toFixed(2) + '</span></small>');
                     } else {
                         $('#valorTotal').text(total.toFixed(2));
                     }
@@ -404,43 +379,9 @@
             $('#previewCategoria').text(nuevaCategoria);
 
             // Cerrar modal y limpiar
-            $('#modalCategoria').modal('hide');
+            var modal = bootstrap.Modal.getInstance(document.getElementById('modalCategoria'));
+            modal.hide();
             $('#txtNuevaCategoria').val('');
-        }
-
-        // Validación antes de enviar
-        function validarFormulario() {
-            var valido = true;
-            var errores = [];
-
-            // Validar campos requeridos
-            if ($('#<%= txtNombre.ClientID %>').val().trim() === '') {
-                errores.push('El nombre es requerido');
-                valido = false;
-            }
-
-            if ($('#<%= ddlCategoria.ClientID %>').val() === '') {
-                errores.push('La categoría es requerida');
-                valido = false;
-            }
-
-            var precio = parseFloat($('#<%= txtPrecio.ClientID %>').val());
-            if (isNaN(precio) || precio <= 0) {
-                errores.push('El precio debe ser mayor a 0');
-                valido = false;
-            }
-
-            var stock = parseInt($('#<%= txtStock.ClientID %>').val());
-            if (isNaN(stock) || stock < 0) {
-                errores.push('El stock debe ser 0 o mayor');
-                valido = false;
-            }
-
-            if (!valido) {
-                alert('Por favor corrija los siguientes errores:\n\n' + errores.join('\n'));
-            }
-
-            return valido;
         }
     </script>
 </asp:Content>

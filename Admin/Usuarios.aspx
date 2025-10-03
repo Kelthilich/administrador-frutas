@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h2><i class="fas fa-users text-primary"></i> Gestión de Usuarios</h2>
+                        <h2 class="fw-bold"><i class="fas fa-users text-primary"></i> Gestión de Usuarios</h2>
                         <p class="text-muted">Administre los usuarios del sistema</p>
                     </div>
                     <div>
@@ -22,14 +22,14 @@
         <!-- Estadísticas -->
         <div class="row mb-4">
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card border-start border-primary border-4 shadow h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
+                        <div class="row g-0 align-items-center">
                             <div class="col me-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <div class="text-xs fw-bold text-primary text-uppercase mb-1">
                                     Total Usuarios
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 fw-bold text-dark">
                                     <asp:Label ID="lblTotalUsuarios" runat="server" Text="0" />
                                 </div>
                             </div>
@@ -42,14 +42,14 @@
             </div>
 
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
+                <div class="card border-start border-success border-4 shadow h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
+                        <div class="row g-0 align-items-center">
                             <div class="col me-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                <div class="text-xs fw-bold text-success text-uppercase mb-1">
                                     Usuarios Activos
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 fw-bold text-dark">
                                     <asp:Label ID="lblUsuariosActivos" runat="server" Text="0" />
                                 </div>
                             </div>
@@ -62,14 +62,14 @@
             </div>
 
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
+                <div class="card border-start border-info border-4 shadow h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
+                        <div class="row g-0 align-items-center">
                             <div class="col me-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                <div class="text-xs fw-bold text-info text-uppercase mb-1">
                                     Administradores
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 fw-bold text-dark">
                                     <asp:Label ID="lblAdministradores" runat="server" Text="0" />
                                 </div>
                             </div>
@@ -82,14 +82,14 @@
             </div>
 
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card border-start border-warning border-4 shadow h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
+                        <div class="row g-0 align-items-center">
                             <div class="col me-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                <div class="text-xs fw-bold text-warning text-uppercase mb-1">
                                     Usuarios Bloqueados
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 fw-bold text-dark">
                                     <asp:Label ID="lblUsuariosBloqueados" runat="server" Text="0" />
                                 </div>
                             </div>
@@ -106,8 +106,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card shadow">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">
+                    <div class="card-header py-3 bg-white">
+                        <h6 class="m-0 fw-bold text-primary">
                             <i class="fas fa-table"></i> Lista de Usuarios
                         </h6>
                     </div>
@@ -151,8 +151,8 @@
                                         <ItemTemplate>
                                             <div class="text-center">
                                                 <%# (bool)Eval("Activo") ? 
-                                                    "<span class='badge badge-success'>Activo</span>" : 
-                                                    "<span class='badge badge-secondary'>Inactivo</span>" %>
+                                                    "<span class='badge bg-success'>Activo</span>" : 
+                                                    "<span class='badge bg-secondary'>Inactivo</span>" %>
                                                 <br />
                                                 <small class="text-muted">
                                                     Creado: <%# ((DateTime)Eval("FechaCreacion")).ToString("dd/MM/yyyy") %>
@@ -164,6 +164,7 @@
                                     <asp:TemplateField HeaderText="Último Login">
                                         <ItemTemplate>
                                             <small class="text-muted">
+                                                <i class="fas fa-clock"></i>
                                                 <%# Eval("UltimoLogin") != null ? 
                                                     ((DateTime)Eval("UltimoLogin")).ToString("dd/MM/yyyy HH:mm") : 
                                                     "Nunca" %>
@@ -199,19 +200,20 @@
         </div>
 
         <!-- Modal para mostrar contraseña temporal -->
-        <div class="modal fade" id="modalPassword" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="modalPasswordLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Contraseña Temporal Generada</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="modalPasswordLabel">
+                            <i class="fas fa-key"></i> Contraseña Temporal Generada
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Se ha generado una nueva contraseña temporal para el usuario:</p>
                         <div class="alert alert-success">
-                            <strong>Nueva Contraseña:</strong> <span id="nuevaPassword"></span>
+                            <strong><i class="fas fa-lock"></i> Nueva Contraseña:</strong> 
+                            <span id="nuevaPassword" class="fw-bold"></span>
                         </div>
                         <p class="text-muted">
                             <small>
@@ -221,7 +223,9 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            <i class="fas fa-check"></i> Entendido
+                        </button>
                     </div>
                 </div>
             </div>
@@ -231,28 +235,8 @@
 
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptsContent" runat="server">
     <style>
-        .border-left-primary {
-            border-left: 0.25rem solid #4e73df !important;
-        }
-        
-        .border-left-success {
-            border-left: 0.25rem solid #1cc88a !important;
-        }
-        
-        .border-left-info {
-            border-left: 0.25rem solid #36b9cc !important;
-        }
-        
-        .border-left-warning {
-            border-left: 0.25rem solid #f6c23e !important;
-        }
-        
         .text-gray-300 {
             color: #dddfeb !important;
-        }
-        
-        .text-gray-800 {
-            color: #5a5c69 !important;
         }
         
         .user-icon {
@@ -269,17 +253,25 @@
             background-color: #6c757d;
             color: white;
         }
+        
+        .text-xs {
+            font-size: 0.7rem;
+        }
     </style>
 
     <script type="text/javascript">
         function mostrarPassword(password) {
             document.getElementById('nuevaPassword').innerText = password;
-            $('#modalPassword').modal('show');
+            var modal = new bootstrap.Modal(document.getElementById('modalPassword'));
+            modal.show();
         }
         
         $(document).ready(function() {
-            // Inicializar tooltips
-            $('[data-bs-toggle="tooltip"]').tooltip();
+            // Inicializar tooltips de Bootstrap 5
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
         });
     </script>
 </asp:Content>

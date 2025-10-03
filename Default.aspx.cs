@@ -6,7 +6,7 @@ using frutas.Services;
 
 namespace frutas
 {
-    public partial class _Default : Page
+    public partial class _Default : SecureBasePage // Cambio aquí: heredar de SecureBasePage
     {
         private readonly FrutaService _frutaService;
         private readonly LogService _logService;
@@ -19,12 +19,8 @@ namespace frutas
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // REQUERIR AUTENTICACIÓN OBLIGATORIA
-            if (!SessionHelper.EstaLogueado)
-            {
-                Response.Redirect("~/Account/Login.aspx?ReturnUrl=" + Server.UrlEncode(Request.RawUrl));
-                return;
-            }
+            // La autenticación ya se maneja en SecureBasePage.OnInit
+            // Ya no es necesario verificar aquí
 
             if (!IsPostBack)
             {

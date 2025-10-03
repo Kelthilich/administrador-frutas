@@ -336,6 +336,35 @@ namespace frutas.Frutas
                 return "badge badge-stock-ok";
         }
 
+        /// <summary>
+        /// Obtiene el icono de Font Awesome para la temporada
+        /// </summary>
+        protected string GetSeasonIcon(object temporada)
+        {
+            if (temporada == null)
+                return "calendar";
+
+            string temp = temporada.ToString().ToLower();
+            
+            switch (temp)
+            {
+                case "primavera":
+                    return "seedling";
+                case "verano":
+                    return "sun";
+                case "otoño":
+                case "otono":
+                    return "leaf";
+                case "invierno":
+                    return "snowflake";
+                case "todo el año":
+                case "todo el ano":
+                    return "calendar-check";
+                default:
+                    return "calendar";
+            }
+        }
+
         #endregion
     }
 }

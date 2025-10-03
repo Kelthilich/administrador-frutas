@@ -9,8 +9,11 @@
 
 namespace frutas.Frutas
 {
+
+
     public partial class AgregarFruta
     {
+
         /// <summary>
         /// txtNombre control.
         /// </summary>

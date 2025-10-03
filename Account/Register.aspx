@@ -5,14 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h4><i class="fas fa-user-plus"></i> Crear Nueva Cuenta</h4>
+                    <div class="card-header bg-primary text-white text-center py-3">
+                        <h4 class="mb-0"><i class="fas fa-user-plus"></i> Crear Nueva Cuenta</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         <!-- Username -->
-                        <div class="form-group">
-                            <label for="txtUsername">
-                                <i class="fas fa-user"></i> Nombre de Usuario *
+                        <div class="mb-3">
+                            <label for="txtUsername" class="form-label fw-bold">
+                                <i class="fas fa-user text-primary"></i> Nombre de Usuario *
                             </label>
                             <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" 
                                        placeholder="Ingrese un nombre de usuario único" MaxLength="50" />
@@ -31,9 +31,9 @@
                         </div>
 
                         <!-- Email -->
-                        <div class="form-group">
-                            <label for="txtEmail">
-                                <i class="fas fa-envelope"></i> Correo Electrónico *
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label fw-bold">
+                                <i class="fas fa-envelope text-primary"></i> Correo Electrónico *
                             </label>
                             <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" 
                                        TextMode="Email" placeholder="ejemplo@correo.com" MaxLength="100" />
@@ -49,9 +49,9 @@
                         </div>
 
                         <!-- Nombre Completo -->
-                        <div class="form-group">
-                            <label for="txtNombreCompleto">
-                                <i class="fas fa-id-card"></i> Nombre Completo
+                        <div class="mb-3">
+                            <label for="txtNombreCompleto" class="form-label fw-bold">
+                                <i class="fas fa-id-card text-primary"></i> Nombre Completo
                             </label>
                             <asp:TextBox ID="txtNombreCompleto" runat="server" CssClass="form-control" 
                                        placeholder="Ingrese su nombre completo (opcional)" MaxLength="100" />
@@ -63,9 +63,9 @@
                         </div>
 
                         <!-- Password -->
-                        <div class="form-group">
-                            <label for="txtPassword">
-                                <i class="fas fa-lock"></i> Contraseña *
+                        <div class="mb-3">
+                            <label for="txtPassword" class="form-label fw-bold">
+                                <i class="fas fa-lock text-primary"></i> Contraseña *
                             </label>
                             <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" 
                                        CssClass="form-control" placeholder="Ingrese una contraseña segura" />
@@ -79,9 +79,9 @@
                         </div>
 
                         <!-- Confirm Password -->
-                        <div class="form-group">
-                            <label for="txtConfirmarPassword">
-                                <i class="fas fa-lock"></i> Confirmar Contraseña *
+                        <div class="mb-3">
+                            <label for="txtConfirmarPassword" class="form-label fw-bold">
+                                <i class="fas fa-lock text-primary"></i> Confirmar Contraseña *
                             </label>
                             <asp:TextBox ID="txtConfirmarPassword" runat="server" TextMode="Password" 
                                        CssClass="form-control" placeholder="Confirme su contraseña" />
@@ -97,14 +97,16 @@
                         </div>
 
                         <!-- Terms -->
-                        <div class="form-group form-check">
-                            <asp:CheckBox ID="chkTerminos" runat="server" CssClass="form-check-input" />
-                            <label class="form-check-label" for="chkTerminos">
-                                Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerminos">términos y condiciones</a> *
-                            </label>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <asp:CheckBox ID="chkTerminos" runat="server" CssClass="form-check-input" />
+                                <label class="form-check-label" for="<%= chkTerminos.ClientID %>">
+                                    Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerminos" class="text-decoration-none">términos y condiciones</a> *
+                                </label>
+                            </div>
                             <asp:CustomValidator ID="cvTerminos" runat="server"
                                                ErrorMessage="Debe aceptar los términos y condiciones"
-                                               CssClass="text-danger small" Display="Dynamic"
+                                               CssClass="text-danger small d-block" Display="Dynamic"
                                                ClientValidationFunction="validarTerminos" />
                         </div>
 
@@ -114,16 +116,18 @@
                         </asp:Panel>
 
                         <!-- Submit Button -->
-                        <div class="form-group">
+                        <div class="d-grid mb-3">
                             <asp:Button ID="btnRegistrar" runat="server" Text="Crear Cuenta" 
-                                      CssClass="btn btn-primary btn-block" OnClick="btnRegistrar_Click" />
+                                      CssClass="btn btn-primary btn-lg" OnClick="btnRegistrar_Click" />
                         </div>
+
+                        <hr>
 
                         <!-- Links -->
                         <div class="text-center">
                             <p class="mb-0">
                                 ¿Ya tienes cuenta? 
-                                <a href="Login.aspx" class="text-primary">
+                                <a href="Login.aspx" class="text-primary text-decoration-none fw-bold">
                                     <i class="fas fa-sign-in-alt"></i> Iniciar sesión aquí
                                 </a>
                             </p>
@@ -135,30 +139,35 @@
     </div>
 
     <!-- Modal de Términos y Condiciones -->
-    <div class="modal fade" id="modalTerminos" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="modalTerminos" tabindex="-1" aria-labelledby="modalTerminosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Términos y Condiciones</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalTerminosLabel">
+                        <i class="fas fa-file-contract"></i> Términos y Condiciones
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>1. Aceptación de Términos</h6>
+                    <h6 class="fw-bold">1. Aceptación de Términos</h6>
                     <p>Al registrarse en el Sistema de Gestión de Frutas, usted acepta cumplir con estos términos y condiciones.</p>
                     
-                    <h6>2. Uso del Sistema</h6>
+                    <h6 class="fw-bold">2. Uso del Sistema</h6>
                     <p>Este sistema está diseñado para la gestión de inventario de frutas. El uso debe ser responsable y conforme a las políticas de la organización.</p>
                     
-                    <h6>3. Privacidad</h6>
+                    <h6 class="fw-bold">3. Privacidad</h6>
                     <p>Su información personal será protegida y utilizada únicamente para los propósitos del sistema.</p>
                     
-                    <h6>4. Responsabilidades del Usuario</h6>
+                    <h6 class="fw-bold">4. Responsabilidades del Usuario</h6>
                     <p>Usted es responsable de mantener la confidencialidad de su cuenta y contraseña.</p>
+
+                    <h6 class="fw-bold">5. Modificaciones</h6>
+                    <p>Nos reservamos el derecho de modificar estos términos en cualquier momento.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cerrar
+                    </button>
                 </div>
             </div>
         </div>
@@ -175,8 +184,6 @@
             $('#<%= txtUsername.ClientID %>').blur(function () {
                 var username = $(this).val();
                 if (username.length >= 3) {
-                    // Aquí podrías hacer una llamada AJAX para verificar disponibilidad
-                    // Por ahora solo mostramos feedback visual
                     $(this).removeClass('is-invalid is-valid').addClass('is-valid');
                 }
             });
@@ -218,12 +225,12 @@
             $password.removeClass('is-invalid is-valid');
             
             if (strength < 3) {
-                $feedback.html('<span class="text-danger">Contraseña débil</span>');
+                $feedback.html('<span class="text-danger"><i class="fas fa-times-circle"></i> Contraseña débil</span>');
                 $password.addClass('is-invalid');
             } else if (strength < 5) {
-                $feedback.html('<span class="text-warning">Contraseña regular</span>');
+                $feedback.html('<span class="text-warning"><i class="fas fa-exclamation-circle"></i> Contraseña regular</span>');
             } else {
-                $feedback.html('<span class="text-success">Contraseña fuerte</span>');
+                $feedback.html('<span class="text-success"><i class="fas fa-check-circle"></i> Contraseña fuerte</span>');
                 $password.addClass('is-valid');
             }
         }

@@ -5,14 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-5">
                 <div class="card shadow">
-                    <div class="card-header bg-warning text-dark text-center">
-                        <h4><i class="fas fa-key"></i> Cambiar Contraseña</h4>
+                    <div class="card-header bg-warning text-dark text-center py-3">
+                        <h4 class="mb-0"><i class="fas fa-key"></i> Cambiar Contraseña</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         <!-- Contraseña Actual -->
-                        <div class="form-group">
-                            <label for="txtPasswordActual">
-                                <i class="fas fa-lock"></i> Contraseña Actual *
+                        <div class="mb-3">
+                            <label for="txtPasswordActual" class="form-label fw-bold">
+                                <i class="fas fa-lock text-warning"></i> Contraseña Actual *
                             </label>
                             <asp:TextBox ID="txtPasswordActual" runat="server" TextMode="Password" 
                                        CssClass="form-control" placeholder="Ingrese su contraseña actual" />
@@ -23,9 +23,9 @@
                         </div>
 
                         <!-- Nueva Contraseña -->
-                        <div class="form-group">
-                            <label for="txtPasswordNueva">
-                                <i class="fas fa-lock"></i> Nueva Contraseña *
+                        <div class="mb-3">
+                            <label for="txtPasswordNueva" class="form-label fw-bold">
+                                <i class="fas fa-lock text-warning"></i> Nueva Contraseña *
                             </label>
                             <asp:TextBox ID="txtPasswordNueva" runat="server" TextMode="Password" 
                                        CssClass="form-control" placeholder="Ingrese la nueva contraseña" />
@@ -44,9 +44,9 @@
                         </div>
 
                         <!-- Confirmar Nueva Contraseña -->
-                        <div class="form-group">
-                            <label for="txtPasswordConfirmar">
-                                <i class="fas fa-lock"></i> Confirmar Nueva Contraseña *
+                        <div class="mb-3">
+                            <label for="txtPasswordConfirmar" class="form-label fw-bold">
+                                <i class="fas fa-lock text-warning"></i> Confirmar Nueva Contraseña *
                             </label>
                             <asp:TextBox ID="txtPasswordConfirmar" runat="server" TextMode="Password" 
                                        CssClass="form-control" placeholder="Confirme la nueva contraseña" />
@@ -62,24 +62,26 @@
                         </div>
 
                         <!-- Mensaje de resultado -->
-                        <asp:Panel ID="pnlMessage" runat="server" Visible="false">
+                        <asp:Panel ID="pnlMessage" runat="server" Visible="false" CssClass="mb-3">
                             <asp:Label ID="lblMessage" runat="server" />
                         </asp:Panel>
 
                         <!-- Botones -->
-                        <div class="form-group">
+                        <div class="d-grid mb-3">
                             <asp:Button ID="btnCambiar" runat="server" Text="Cambiar Contraseña" 
-                                      CssClass="btn btn-warning btn-block" OnClick="btnCambiar_Click" />
+                                      CssClass="btn btn-warning btn-lg text-dark fw-bold" OnClick="btnCambiar_Click" />
                         </div>
+
+                        <hr>
 
                         <!-- Links -->
                         <div class="text-center">
                             <p class="mb-0">
-                                <a href="Profile.aspx" class="text-muted">
+                                <a href="Profile.aspx" class="text-decoration-none me-3">
                                     <i class="fas fa-user"></i> Volver al Perfil
                                 </a>
                                 |
-                                <a href="~/Default.aspx" class="text-muted">
+                                <a href="~/Default.aspx" class="text-decoration-none ms-3" runat="server">
                                     <i class="fas fa-home"></i> Dashboard
                                 </a>
                             </p>
@@ -88,16 +90,17 @@
                 </div>
 
                 <!-- Consejos de Seguridad -->
-                <div class="card mt-4">
+                <div class="card shadow mt-4">
                     <div class="card-body">
-                        <h6 class="card-title text-muted">
+                        <h6 class="card-title text-muted fw-bold">
                             <i class="fas fa-shield-alt"></i> Consejos de Seguridad
                         </h6>
-                        <ul class="small text-muted">
+                        <ul class="small text-muted mb-0">
                             <li>Use una contraseña única que no haya usado en otros sitios</li>
                             <li>Incluya al menos 8 caracteres con mayúsculas, minúsculas, números y símbolos</li>
                             <li>No comparta su contraseña con nadie</li>
-                            <li>Cambie su contraseña periódicamente</li>
+                            <li>Cambie su contraseña periódicamente (cada 3-6 meses)</li>
+                            <li>Evite palabras comunes o información personal obvia</li>
                         </ul>
                     </div>
                 </div>
@@ -144,12 +147,12 @@
             $password.removeClass('is-invalid is-valid');
             
             if (strength < 3) {
-                $feedback.html('<span class="text-danger">Contraseña débil</span>');
+                $feedback.html('<span class="text-danger"><i class="fas fa-times-circle"></i> Contraseña débil</span>');
                 $password.addClass('is-invalid');
             } else if (strength < 5) {
-                $feedback.html('<span class="text-warning">Contraseña regular</span>');
+                $feedback.html('<span class="text-warning"><i class="fas fa-exclamation-circle"></i> Contraseña regular</span>');
             } else {
-                $feedback.html('<span class="text-success">Contraseña fuerte</span>');
+                $feedback.html('<span class="text-success"><i class="fas fa-check-circle"></i> Contraseña fuerte</span>');
                 $password.addClass('is-valid');
             }
         }

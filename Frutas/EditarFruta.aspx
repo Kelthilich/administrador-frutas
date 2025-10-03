@@ -1,4 +1,4 @@
-<%@ Page Title="Editar Fruta" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditarFruta.aspx.cs" Inherits="frutas.Frutas.EditarFruta" %>
+ï»¿<%@ Page Title="Editar Fruta" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditarFruta.aspx.cs" Inherits="frutas.Frutas.EditarFruta" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-4">
@@ -7,13 +7,13 @@
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h2><i class="fas fa-edit text-primary"></i> Editar Fruta</h2>
+                        <h2 class="fw-bold"><i class="fas fa-edit text-primary"></i> Editar Fruta</h2>
                         <p class="text-muted">Modifique los datos de la fruta seleccionada</p>
                         <asp:Panel ID="pnlFrutaInfo" runat="server" Visible="false">
                             <small class="text-muted">
-                                ID: <asp:Label ID="lblFrutaId" runat="server" />
-                                | Creado por: <asp:Label ID="lblUsuarioCreador" runat="server" />
-                                | Fecha: <asp:Label ID="lblFechaCreacion" runat="server" />
+                                <strong>ID:</strong> <asp:Label ID="lblFrutaId" runat="server" />
+                                | <strong>Creado por:</strong> <asp:Label ID="lblUsuarioCreador" runat="server" />
+                                | <strong>Fecha:</strong> <asp:Label ID="lblFechaCreacion" runat="server" />
                             </small>
                         </asp:Panel>
                     </div>
@@ -28,15 +28,15 @@
 
         <!-- Mensaje de Carga -->
         <asp:Panel ID="pnlCargando" runat="server" Visible="true" CssClass="text-center py-5">
-            <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Cargando...</span>
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Cargando...</span>
             </div>
-            <p class="mt-3 text-muted">Cargando información de la fruta...</p>
+            <p class="mt-3 text-muted">Cargando informaciÃ³n de la fruta...</p>
         </asp:Panel>
 
         <!-- Mensaje de Error -->
         <asp:Panel ID="pnlError" runat="server" Visible="false">
-            <div class="alert alert-danger">
+            <div class="alert alert-danger shadow">
                 <h5><i class="fas fa-exclamation-triangle"></i> Error</h5>
                 <asp:Label ID="lblMensajeError" runat="server" />
                 <hr>
@@ -51,28 +51,28 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card shadow">
-                        <div class="card-header bg-primary text-white">
+                        <div class="card-header bg-primary text-white py-3">
                             <h5 class="mb-0">
                                 <i class="fas fa-apple-alt"></i> 
-                                Información de la Fruta: <asp:Label ID="lblNombreFruta" runat="server" />
+                                InformaciÃ³n de la Fruta: <asp:Label ID="lblNombreFruta" runat="server" CssClass="fw-bold" />
                             </h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body p-4">
                             <!-- Alerta de Cambios -->
                             <asp:Panel ID="pnlCambiosDetectados" runat="server" Visible="false" CssClass="alert alert-warning">
                                 <h6><i class="fas fa-exclamation-triangle"></i> Cambios Detectados</h6>
-                                <p class="mb-0">Esta fruta ha sido modificada por otro usuario. Los cambios más recientes se han cargado automáticamente.</p>
+                                <p class="mb-0">Esta fruta ha sido modificada por otro usuario. Los cambios mÃ¡s recientes se han cargado automÃ¡ticamente.</p>
                             </asp:Panel>
 
                             <div class="row">
-                                <!-- Información Básica -->
+                                <!-- InformaciÃ³n BÃ¡sica -->
                                 <div class="col-md-6">
-                                    <h6 class="text-primary mb-3"><i class="fas fa-info-circle"></i> Información Básica</h6>
+                                    <h6 class="text-primary mb-3 fw-bold"><i class="fas fa-info-circle"></i> InformaciÃ³n BÃ¡sica</h6>
                                     
                                     <!-- Nombre -->
-                                    <div class="form-group">
-                                        <label for="txtNombre">
-                                            <i class="fas fa-apple-alt"></i> Nombre de la Fruta *
+                                    <div class="mb-3">
+                                        <label for="txtNombre" class="form-label fw-bold">
+                                            <i class="fas fa-apple-alt text-primary"></i> Nombre de la Fruta *
                                         </label>
                                         <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" 
                                                    placeholder="Ej: Manzana Roja, Banana Premium..." MaxLength="100" />
@@ -82,80 +82,78 @@
                                                                   CssClass="text-danger small" Display="Dynamic" />
                                         <asp:RegularExpressionValidator ID="revNombre" runat="server"
                                                                       ControlToValidate="txtNombre"
-                                                                      ValidationExpression="^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s\-'\.()]+$"
-                                                                      ErrorMessage="El nombre contiene caracteres no válidos"
+                                                                      ValidationExpression="^[a-zA-ZÃ¡Ã©Ã­Ã³ÃºÃ¼Ã±ÃÃ‰ÃÃ“ÃšÃœÃ‘\s\-'\.()]+$"
+                                                                      ErrorMessage="El nombre contiene caracteres no vÃ¡lidos"
                                                                       CssClass="text-danger small" Display="Dynamic" />
                                     </div>
 
-                                    <!-- Descripción -->
-                                    <div class="form-group">
-                                        <label for="txtDescripcion">
-                                            <i class="fas fa-align-left"></i> Descripción
+                                    <!-- DescripciÃ³n -->
+                                    <div class="mb-3">
+                                        <label for="txtDescripcion" class="form-label fw-bold">
+                                            <i class="fas fa-align-left text-primary"></i> DescripciÃ³n
                                         </label>
                                         <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" Rows="3"
-                                                   CssClass="form-control" placeholder="Descripción detallada de la fruta..." 
+                                                   CssClass="form-control" placeholder="DescripciÃ³n detallada de la fruta..." 
                                                    MaxLength="500" />
-                                        <small class="form-text text-muted">Máximo 500 caracteres</small>
+                                        <small class="form-text text-muted">MÃ¡ximo 500 caracteres</small>
                                     </div>
 
-                                    <!-- Categoría -->
-                                    <div class="form-group">
-                                        <label for="ddlCategoria">
-                                            <i class="fas fa-tags"></i> Categoría *
+                                    <!-- CategorÃ­a -->
+                                    <div class="mb-3">
+                                        <label for="ddlCategoria" class="form-label fw-bold">
+                                            <i class="fas fa-tags text-primary"></i> CategorÃ­a *
                                         </label>
-                                        <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control">
-                                            <asp:ListItem Value="" Text="-- Seleccionar Categoría --" />
+                                        <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select">
+                                            <asp:ListItem Value="" Text="-- Seleccionar CategorÃ­a --" />
                                             <asp:ListItem Value="Frutas de Pepita" Text="Frutas de Pepita" />
                                             <asp:ListItem Value="Frutas Tropicales" Text="Frutas Tropicales" />
-                                            <asp:ListItem Value="Cítricos" Text="Cítricos" />
+                                            <asp:ListItem Value="CÃ­tricos" Text="CÃ­tricos" />
                                             <asp:ListItem Value="Frutas de Primavera" Text="Frutas de Primavera" />
-                                            <asp:ListItem Value="Frutas Exóticas" Text="Frutas Exóticas" />
+                                            <asp:ListItem Value="Frutas ExÃ³ticas" Text="Frutas ExÃ³ticas" />
                                             <asp:ListItem Value="Frutas de Vid" Text="Frutas de Vid" />
                                             <asp:ListItem Value="Frutos Secos" Text="Frutos Secos" />
                                             <asp:ListItem Value="Otra" Text="Otra" />
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" 
                                                                   ControlToValidate="ddlCategoria"
-                                                                  ErrorMessage="Debe seleccionar una categoría"
+                                                                  ErrorMessage="Debe seleccionar una categorÃ­a"
                                                                   CssClass="text-danger small" Display="Dynamic" />
                                     </div>
 
-                                    <!-- País de Origen -->
-                                    <div class="form-group">
-                                        <label for="ddlPaisOrigen">
-                                            <i class="fas fa-globe"></i> País de Origen
+                                    <!-- PaÃ­s de Origen -->
+                                    <div class="mb-3">
+                                        <label for="ddlPaisOrigen" class="form-label fw-bold">
+                                            <i class="fas fa-globe text-primary"></i> PaÃ­s de Origen
                                         </label>
-                                        <asp:DropDownList ID="ddlPaisOrigen" runat="server" CssClass="form-control">
-                                            <asp:ListItem Value="" Text="-- Seleccionar País --" />
+                                        <asp:DropDownList ID="ddlPaisOrigen" runat="server" CssClass="form-select">
+                                            <asp:ListItem Value="" Text="-- Seleccionar PaÃ­s --" />
                                             <asp:ListItem Value="Argentina" Text="Argentina" />
                                             <asp:ListItem Value="Brasil" Text="Brasil" />
                                             <asp:ListItem Value="Chile" Text="Chile" />
                                             <asp:ListItem Value="Colombia" Text="Colombia" />
                                             <asp:ListItem Value="Costa Rica" Text="Costa Rica" />
                                             <asp:ListItem Value="Ecuador" Text="Ecuador" />
-                                            <asp:ListItem Value="España" Text="España" />
-                                            <asp:ListItem Value="México" Text="México" />
+                                            <asp:ListItem Value="EspaÃ±a" Text="EspaÃ±a" />
+                                            <asp:ListItem Value="MÃ©xico" Text="MÃ©xico" />
                                             <asp:ListItem Value="Nueva Zelanda" Text="Nueva Zelanda" />
-                                            <asp:ListItem Value="Perú" Text="Perú" />
+                                            <asp:ListItem Value="PerÃº" Text="PerÃº" />
                                             <asp:ListItem Value="Uruguay" Text="Uruguay" />
                                             <asp:ListItem Value="Otro" Text="Otro" />
                                         </asp:DropDownList>
                                     </div>
                                 </div>
 
-                                <!-- Información Comercial -->
+                                <!-- InformaciÃ³n Comercial -->
                                 <div class="col-md-6">
-                                    <h6 class="text-primary mb-3"><i class="fas fa-dollar-sign"></i> Información Comercial</h6>
+                                    <h6 class="text-primary mb-3 fw-bold"><i class="fas fa-dollar-sign"></i> InformaciÃ³n Comercial</h6>
                                     
                                     <!-- Precio -->
-                                    <div class="form-group">
-                                        <label for="txtPrecio">
-                                            <i class="fas fa-dollar-sign"></i> Precio por Unidad *
+                                    <div class="mb-3">
+                                        <label for="txtPrecio" class="form-label fw-bold">
+                                            <i class="fas fa-dollar-sign text-primary"></i> Precio por Unidad *
                                         </label>
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
+                                            <span class="input-group-text">$</span>
                                             <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control text-end" 
                                                        placeholder="0.00" TextMode="Number" step="0.01" min="0.01" />
                                         </div>
@@ -171,16 +169,14 @@
                                     </div>
 
                                     <!-- Stock -->
-                                    <div class="form-group">
-                                        <label for="txtStock">
-                                            <i class="fas fa-boxes"></i> Stock Actual *
+                                    <div class="mb-3">
+                                        <label for="txtStock" class="form-label fw-bold">
+                                            <i class="fas fa-boxes text-primary"></i> Stock Actual *
                                         </label>
                                         <div class="input-group">
                                             <asp:TextBox ID="txtStock" runat="server" CssClass="form-control text-end" 
                                                        placeholder="0" TextMode="Number" min="0" />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">unidades</span>
-                                            </div>
+                                            <span class="input-group-text">unidades</span>
                                         </div>
                                         <asp:RequiredFieldValidator ID="rfvStock" runat="server" 
                                                                   ControlToValidate="txtStock"
@@ -194,58 +190,58 @@
                                     </div>
 
                                     <!-- Temporada -->
-                                    <div class="form-group">
-                                        <label for="ddlTemporada">
-                                            <i class="fas fa-calendar-alt"></i> Temporada
+                                    <div class="mb-3">
+                                        <label for="ddlTemporada" class="form-label fw-bold">
+                                            <i class="fas fa-calendar-alt text-primary"></i> Temporada
                                         </label>
-                                        <asp:DropDownList ID="ddlTemporada" runat="server" CssClass="form-control">
+                                        <asp:DropDownList ID="ddlTemporada" runat="server" CssClass="form-select">
                                             <asp:ListItem Value="" Text="-- Seleccionar Temporada --" />
                                             <asp:ListItem Value="Primavera" Text="Primavera" />
                                             <asp:ListItem Value="Verano" Text="Verano" />
-                                            <asp:ListItem Value="Otoño" Text="Otoño" />
+                                            <asp:ListItem Value="OtoÃ±o" Text="OtoÃ±o" />
                                             <asp:ListItem Value="Invierno" Text="Invierno" />
-                                            <asp:ListItem Value="Todo el año" Text="Todo el año" />
+                                            <asp:ListItem Value="Todo el aÃ±o" Text="Todo el aÃ±o" />
                                         </asp:DropDownList>
                                     </div>
 
                                     <!-- Fecha de Vencimiento -->
-                                    <div class="form-group">
-                                        <label for="txtFechaVencimiento">
-                                            <i class="fas fa-calendar-times"></i> Fecha de Vencimiento
+                                    <div class="mb-3">
+                                        <label for="txtFechaVencimiento" class="form-label fw-bold">
+                                            <i class="fas fa-calendar-times text-primary"></i> Fecha de Vencimiento
                                         </label>
                                         <asp:TextBox ID="txtFechaVencimiento" runat="server" CssClass="form-control" 
                                                    TextMode="Date" />
-                                        <small class="form-text text-muted">Opcional - Solo si la fruta tiene fecha de vencimiento específica</small>
+                                        <small class="form-text text-muted">Opcional - Solo si la fruta tiene fecha de vencimiento especÃ­fica</small>
                                     </div>
 
-                                    <!-- Es Orgánica -->
-                                    <div class="form-group">
+                                    <!-- Es OrgÃ¡nica -->
+                                    <div class="mb-3">
                                         <div class="form-check">
                                             <asp:CheckBox ID="chkEsOrganica" runat="server" CssClass="form-check-input" />
-                                            <label class="form-check-label" for="chkEsOrganica">
-                                                <i class="fas fa-leaf text-success"></i> Es Fruta Orgánica
+                                            <label class="form-check-label" for="<%= chkEsOrganica.ClientID %>">
+                                                <i class="fas fa-leaf text-success"></i> Es Fruta OrgÃ¡nica
                                             </label>
                                         </div>
-                                        <small class="form-text text-muted">Marque si la fruta es de producción orgánica certificada</small>
+                                        <small class="form-text text-muted">Marque si la fruta es de producciÃ³n orgÃ¡nica certificada</small>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Información de Auditoría -->
+                            <!-- InformaciÃ³n de AuditorÃ­a -->
                             <div class="row mt-4">
                                 <div class="col-12">
                                     <div class="alert alert-light">
-                                        <h6><i class="fas fa-history"></i> Información de Auditoría</h6>
+                                        <h6 class="fw-bold"><i class="fas fa-history"></i> InformaciÃ³n de AuditorÃ­a</h6>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <small class="text-muted">
                                                     <strong>Creado por:</strong> <asp:Label ID="lblCreadoPor" runat="server" /><br/>
-                                                    <strong>Fecha de creación:</strong> <asp:Label ID="lblFechaCreacion2" runat="server" />
+                                                    <strong>Fecha de creaciÃ³n:</strong> <asp:Label ID="lblFechaCreacion2" runat="server" />
                                                 </small>
                                             </div>
                                             <div class="col-md-6">
                                                 <small class="text-muted">
-                                                    <strong>Última modificación:</strong> <asp:Label ID="lblUltimaModificacion" runat="server" /><br/>
+                                                    <strong>Ãšltima modificaciÃ³n:</strong> <asp:Label ID="lblUltimaModificacion" runat="server" /><br/>
                                                     <strong>Modificado por:</strong> <asp:Label ID="lblModificadoPor" runat="server" />
                                                 </small>
                                             </div>
@@ -284,15 +280,6 @@
 
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptsContent" runat="server">
     <style>
-        .form-group label {
-            font-weight: 600;
-            color: #495057;
-        }
-        
-        .required {
-            color: #dc3545;
-        }
-        
         .input-group-text {
             background-color: #e9ecef;
             border-color: #ced4da;
@@ -303,16 +290,11 @@
             border-color: #dee2e6;
             color: #495057;
         }
-        
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-        }
     </style>
 
     <script type="text/javascript">
         $(document).ready(function() {
-            // Configurar fecha mínima para vencimiento (solo fechas futuras)
+            // Configurar fecha mÃ­nima para vencimiento (solo fechas futuras)
             var today = new Date().toISOString().split('T')[0];
             $('#<%= txtFechaVencimiento.ClientID %>').attr('min', today);
 
@@ -326,23 +308,13 @@
             // Advertir antes de salir si hay cambios no guardados
             $(window).on('beforeunload', function() {
                 if (formChanged) {
-                    return '¿Está seguro de que desea salir? Los cambios no guardados se perderán.';
+                    return 'Â¿EstÃ¡ seguro de que desea salir? Los cambios no guardados se perderÃ¡n.';
                 }
             });
 
             // No mostrar advertencia al enviar el formulario
             $('form').on('submit', function() {
                 formChanged = false;
-            });
-
-            // Validación en tiempo real del precio
-            $('#<%= txtPrecio.ClientID %>').on('input', function() {
-                var precio = parseFloat($(this).val());
-                if (precio < 0.01) {
-                    $(this).addClass('is-invalid');
-                } else {
-                    $(this).removeClass('is-invalid').addClass('is-valid');
-                }
             });
 
             // Calculadora de valor total en tiempo real
@@ -354,65 +326,15 @@
                 // Mostrar valor total
                 if (!$('#valorTotal').length && total > 0) {
                     $('#<%= txtStock.ClientID %>').closest('.input-group').after(
-                        '<small class="form-text text-success">Valor total del inventario: $<span id="valorTotal">' + total.toFixed(2) + '</span></small>'
+                        '<small class="form-text text-success fw-bold">Valor total del inventario: $<span id="valorTotal">' + total.toFixed(2) + '</span></small>'
                     );
                 } else if ($('#valorTotal').length) {
                     $('#valorTotal').text(total.toFixed(2));
                 }
             });
 
-            // Triggar el cálculo inicial
+            // Triggar el cÃ¡lculo inicial
             $('#<%= txtPrecio.ClientID %>').trigger('input');
         });
-
-        // Validación antes de enviar
-        function validarFormulario() {
-            var valido = true;
-            var errores = [];
-
-            // Validar campos requeridos
-            if ($('#<%= txtNombre.ClientID %>').val().trim() === '') {
-                errores.push('El nombre es requerido');
-                valido = false;
-            }
-
-            if ($('#<%= ddlCategoria.ClientID %>').val() === '') {
-                errores.push('La categoría es requerida');
-                valido = false;
-            }
-
-            var precio = parseFloat($('#<%= txtPrecio.ClientID %>').val());
-            if (isNaN(precio) || precio <= 0) {
-                errores.push('El precio debe ser mayor a 0');
-                valido = false;
-            }
-
-            var stock = parseInt($('#<%= txtStock.ClientID %>').val());
-            if (isNaN(stock) || stock < 0) {
-                errores.push('El stock debe ser 0 o mayor');
-                valido = false;
-            }
-
-            // Validar fecha de vencimiento si está presente
-            var fechaVencimiento = $('#<%= txtFechaVencimiento.ClientID %>').val();
-            if (fechaVencimiento) {
-                var fecha = new Date(fechaVencimiento);
-                var hoy = new Date();
-                hoy.setHours(0, 0, 0, 0);
-                
-                if (fecha <= hoy) {
-                    errores.push('La fecha de vencimiento debe ser futura');
-                    valido = false;
-                }
-            }
-
-            if (!valido) {
-                alert('Por favor corrija los siguientes errores:\n\n' + errores.join('\n'));
-                return false;
-            }
-
-            // Confirmar guardado
-            return confirm('¿Está seguro de que desea guardar los cambios?');
-        }
     </script>
 </asp:Content>

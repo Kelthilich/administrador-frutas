@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h2><i class="fas fa-apple-alt text-success"></i> Inventario de Frutas</h2>
+                        <h2 class="fw-bold"><i class="fas fa-apple-alt text-success"></i> Inventario de Frutas</h2>
                         <p class="text-muted">Gestiona el inventario completo de frutas</p>
                     </div>
                     <div>
@@ -22,45 +22,50 @@
         <!-- Filtros y Búsqueda -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h6 class="m-0"><i class="fas fa-filter"></i> Filtros de Búsqueda</h6>
+                <div class="card shadow">
+                    <div class="card-header bg-white">
+                        <h6 class="m-0 fw-bold"><i class="fas fa-filter"></i> Filtros de Búsqueda</h6>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row g-3">
                             <div class="col-md-3">
-                                <label for="txtBuscar">Buscar por Nombre:</label>
+                                <label for="txtBuscar" class="form-label fw-bold">Buscar por Nombre:</label>
                                 <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" 
                                            placeholder="Nombre de la fruta..." />
                             </div>
                             <div class="col-md-2">
-                                <label for="ddlCategoria">Categoría:</label>
-                                <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control">
+                                <label for="ddlCategoria" class="form-label fw-bold">Categoría:</label>
+                                <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select">
                                     <asp:ListItem Value="" Text="Todas las categorías" />
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label for="ddlPais">País de Origen:</label>
-                                <asp:DropDownList ID="ddlPais" runat="server" CssClass="form-control">
+                                <label for="ddlPais" class="form-label fw-bold">País de Origen:</label>
+                                <asp:DropDownList ID="ddlPais" runat="server" CssClass="form-select">
                                     <asp:ListItem Value="" Text="Todos los países" />
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label for="chkSoloOrganicas">Filtros:</label>
-                                <div class="form-check">
-                                    <asp:CheckBox ID="chkSoloOrganicas" runat="server" CssClass="form-check-input" />
-                                    <label class="form-check-label">Solo Orgánicas</label>
+                                <div class="form-check mb-2">
+                                    <asp:CheckBox ID="chkSoloOrganicas" runat="server" 
+                                                CssClass="form-check-input" />
+                                    <label class="form-check-label" for="<%= chkSoloOrganicas.ClientID %>">
+                                        Solo Orgánicas
+                                    </label>
                                 </div>
                                 <div class="form-check">
-                                    <asp:CheckBox ID="chkSoloDisponibles" runat="server" CssClass="form-check-input" Checked="true" />
-                                    <label class="form-check-label">Solo Disponibles</label>
+                                    <asp:CheckBox ID="chkSoloDisponibles" runat="server" 
+                                                CssClass="form-check-input" Checked="true" />
+                                    <label class="form-check-label" for="<%= chkSoloDisponibles.ClientID %>">
+                                        Solo Disponibles
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label>&nbsp;</label>
-                                <div class="d-flex">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="d-grid gap-2">
                                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" 
-                                              CssClass="btn btn-primary me-2" OnClick="btnBuscar_Click" />
+                                              CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
                                     <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 
                                               CssClass="btn btn-outline-secondary" OnClick="btnLimpiar_Click" />
                                 </div>
@@ -72,36 +77,36 @@
         </div>
 
         <!-- Estadísticas Rápidas -->
-        <div class="row mb-4">
+        <div class="row mb-4 g-3">
             <div class="col-md-3">
-                <div class="card bg-primary text-white">
+                <div class="card bg-primary text-white shadow">
                     <div class="card-body text-center">
-                        <h4><asp:Label ID="lblTotalFrutas" runat="server" Text="0" /></h4>
-                        <p class="mb-0">Total Frutas</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblTotalFrutas" runat="server" Text="0" /></h4>
+                        <p class="mb-0"><i class="fas fa-apple-alt"></i> Total Frutas</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-success text-white">
+                <div class="card bg-success text-white shadow">
                     <div class="card-body text-center">
-                        <h4>$<asp:Label ID="lblValorTotal" runat="server" Text="0.00" /></h4>
-                        <p class="mb-0">Valor Total</p>
+                        <h4 class="fw-bold">$<asp:Label ID="lblValorTotal" runat="server" Text="0.00" /></h4>
+                        <p class="mb-0"><i class="fas fa-dollar-sign"></i> Valor Total</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-info text-white">
+                <div class="card bg-info text-white shadow">
                     <div class="card-body text-center">
-                        <h4><asp:Label ID="lblStockTotal" runat="server" Text="0" /></h4>
-                        <p class="mb-0">Stock Total</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblStockTotal" runat="server" Text="0" /></h4>
+                        <p class="mb-0"><i class="fas fa-boxes"></i> Stock Total</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-warning text-white">
+                <div class="card bg-warning text-white shadow">
                     <div class="card-body text-center">
-                        <h4><asp:Label ID="lblPrecioPromedio" runat="server" Text="0.00" /></h4>
-                        <p class="mb-0">Precio Promedio</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblPrecioPromedio" runat="server" Text="0.00" /></h4>
+                        <p class="mb-0"><i class="fas fa-chart-line"></i> Precio Promedio</p>
                     </div>
                 </div>
             </div>
@@ -110,107 +115,110 @@
         <!-- Lista de Frutas -->
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="m-0"><i class="fas fa-list"></i> Lista de Frutas</h6>
+                <div class="card shadow">
+                    <div class="card-header d-flex justify-content-between align-items-center bg-white">
+                        <h6 class="m-0 fw-bold"><i class="fas fa-list"></i> Lista de Frutas</h6>
                         <div>
                             <small class="text-muted">
-                                Página <asp:Label ID="lblPaginaActual" runat="server" Text="1" /> 
-                                de <asp:Label ID="lblTotalPaginas" runat="server" Text="1" /> 
+                                Página <asp:Label ID="lblPaginaActual" runat="server" Text="1" CssClass="fw-bold" /> 
+                                de <asp:Label ID="lblTotalPaginas" runat="server" Text="1" CssClass="fw-bold" /> 
                                 (<asp:Label ID="lblTotalRegistros" runat="server" Text="0" /> registros)
                             </small>
                         </div>
                     </div>
                     <div class="card-body p-0">
-                        <asp:GridView ID="gvFrutas" runat="server" CssClass="table table-hover table-responsive-sm"
-                                    AutoGenerateColumns="false" DataKeyNames="Id" 
-                                    OnRowCommand="gvFrutas_RowCommand" OnRowDataBound="gvFrutas_RowDataBound"
-                                    EmptyDataText="No se encontraron frutas con los criterios especificados">
-                            <Columns>
-                                <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-Width="50px" />
-                                
-                                <asp:TemplateField HeaderText="Fruta">
-                                    <ItemTemplate>
-                                        <div class="d-flex align-items-center">
-                                            <div class="fruit-icon me-3">
-                                                <i class="fas fa-apple-alt fa-2x text-success"></i>
+                        <div class="table-responsive">
+                            <asp:GridView ID="gvFrutas" runat="server" CssClass="table table-hover mb-0"
+                                        AutoGenerateColumns="false" DataKeyNames="Id" 
+                                        OnRowCommand="gvFrutas_RowCommand" OnRowDataBound="gvFrutas_RowDataBound"
+                                        EmptyDataText="No se encontraron frutas con los criterios especificados">
+                                <Columns>
+                                    <asp:BoundField DataField="Id" HeaderText="ID" ItemStyle-Width="50px" />
+                                    
+                                    <asp:TemplateField HeaderText="Fruta">
+                                        <ItemTemplate>
+                                            <div class="d-flex align-items-center">
+                                                <div class="fruit-icon me-3">
+                                                    <i class="fas fa-apple-alt fa-2x text-success"></i>
+                                                </div>
+                                                <div>
+                                                    <strong><%# Eval("Nombre") %></strong>
+                                                    <br />
+                                                    <small class="text-muted"><%# Eval("Descripcion") %></small>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <strong><%# Eval("Nombre") %></strong>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Categoría">
+                                        <ItemTemplate>
+                                            <span class="badge bg-secondary"><%# Eval("Categoria") %></span>
+                                            <br />
+                                            <small class="text-muted"><i class="fas fa-globe"></i> <%# Eval("PaisOrigen") %></small>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Precio">
+                                        <ItemTemplate>
+                                            <strong class="text-success">$<%# Eval("Precio", "{0:N2}") %></strong>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Stock">
+                                        <ItemTemplate>
+                                            <div class="text-center">
+                                                <span class='<%# GetStockCssClass((int)Eval("Stock")) %>'>
+                                                    <%# Eval("Stock") %>
+                                                </span>
                                                 <br />
-                                                <small class="text-muted"><%# Eval("Descripcion") %></small>
+                                                <small class="text-muted">unidades</small>
                                             </div>
-                                        </div>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Categoría">
-                                    <ItemTemplate>
-                                        <span class="badge badge-secondary"><%# Eval("Categoria") %></span>
-                                        <br />
-                                        <small class="text-muted"><%# Eval("PaisOrigen") %></small>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Información">
+                                        <ItemTemplate>
+                                            <div class="small">
+                                                <%# (bool)Eval("EsOrganica") ? "<span class='badge bg-success'><i class='fas fa-leaf'></i> Orgánica</span>" : "" %>
+                                                <br />
+                                                <span class="text-muted"><i class='fas fa-<%# GetSeasonIcon(Eval("Temporada")) %>'></i> <%# Eval("Temporada") %></span>
+                                                <%# Eval("FechaVencimiento") != null ? 
+                                                    "<br/><small class='text-warning'><i class='fas fa-calendar-times'></i> Vence: " + ((DateTime)Eval("FechaVencimiento")).ToString("dd/MM/yyyy") + "</small>" : "" %>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Precio">
-                                    <ItemTemplate>
-                                        <strong class="text-success">$<%# Eval("Precio", "{0:N2}") %></strong>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-
-                                <asp:TemplateField HeaderText="Stock">
-                                    <ItemTemplate>
-                                        <div class="text-center">
-                                            <span class='<%# GetStockCssClass((int)Eval("Stock")) %>'>
-                                                <%# Eval("Stock") %>
-                                            </span>
-                                            <br />
-                                            <small class="text-muted">unidades</small>
-                                        </div>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-
-                                <asp:TemplateField HeaderText="Información">
-                                    <ItemTemplate>
-                                        <div class="small">
-                                            <%# (bool)Eval("EsOrganica") ? "<span class='badge badge-success'>Orgánica</span>" : "" %>
-                                            <br />
-                                            <span class="text-muted"><%# Eval("Temporada") %></span>
-                                            <%# Eval("FechaVencimiento") != null ? 
-                                                "<br/><small>Vence: " + ((DateTime)Eval("FechaVencimiento")).ToString("dd/MM/yyyy") + "</small>" : "" %>
-                                        </div>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-
-                                <asp:TemplateField HeaderText="Acciones" ItemStyle-Width="120px">
-                                    <ItemTemplate>
-                                        <div class="btn-group" role="group">
-                                            <asp:LinkButton ID="btnEditar" runat="server" 
-                                                          CommandName="Editar" CommandArgument='<%# Eval("Id") %>'
-                                                          CssClass="btn btn-sm btn-outline-primary" 
-                                                          ToolTip="Editar">
-                                                <i class="fas fa-edit"></i>
-                                            </asp:LinkButton>
-                                            <asp:LinkButton ID="btnEliminar" runat="server" 
-                                                          CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'
-                                                          CssClass="btn btn-sm btn-outline-danger" 
-                                                          ToolTip="Eliminar"
-                                                          OnClientClick="return confirm('¿Está seguro de eliminar esta fruta?');">
-                                                <i class="fas fa-trash"></i>
-                                            </asp:LinkButton>
-                                        </div>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
+                                    <asp:TemplateField HeaderText="Acciones" ItemStyle-Width="120px">
+                                        <ItemTemplate>
+                                            <div class="btn-group" role="group">
+                                                <asp:LinkButton ID="btnEditar" runat="server" 
+                                                              CommandName="Editar" CommandArgument='<%# Eval("Id") %>'
+                                                              CssClass="btn btn-sm btn-outline-primary" 
+                                                              ToolTip="Editar">
+                                                    <i class="fas fa-edit"></i>
+                                                </asp:LinkButton>
+                                                <asp:LinkButton ID="btnEliminar" runat="server" 
+                                                              CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'
+                                                              CssClass="btn btn-sm btn-outline-danger" 
+                                                              ToolTip="Eliminar"
+                                                              OnClientClick="return confirm('¿Está seguro de eliminar esta fruta?');">
+                                                    <i class="fas fa-trash"></i>
+                                                </asp:LinkButton>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </div>
                     </div>
                     
                     <!-- Paginación -->
                     <div class="card-footer">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <label for="ddlTamañoPagina">Mostrar:</label>
-                                <asp:DropDownList ID="ddlTamañoPagina" runat="server" CssClass="form-control form-control-sm d-inline-block w-auto ms-2" AutoPostBack="true" OnSelectedIndexChanged="ddlTamañoPagina_SelectedIndexChanged">
+                                <label for="ddlTamañoPagina" class="form-label mb-0 me-2">Mostrar:</label>
+                                <asp:DropDownList ID="ddlTamañoPagina" runat="server" CssClass="form-select form-select-sm d-inline-block w-auto" 
+                                                AutoPostBack="true" OnSelectedIndexChanged="ddlTamañoPagina_SelectedIndexChanged">
                                     <asp:ListItem Value="10" Text="10" />
                                     <asp:ListItem Value="25" Text="25" Selected="True" />
                                     <asp:ListItem Value="50" Text="50" />
@@ -220,7 +228,7 @@
                             </div>
                             
                             <div>
-                                <asp:Button ID="btnPrimera" runat="server" Text="Primeira" CssClass="btn btn-sm btn-outline-secondary" 
+                                <asp:Button ID="btnPrimera" runat="server" Text="Primera" CssClass="btn btn-sm btn-outline-secondary" 
                                           OnClick="btnPrimera_Click" />
                                 <asp:Button ID="btnAnterior" runat="server" Text="Anterior" CssClass="btn btn-sm btn-outline-secondary" 
                                           OnClick="btnAnterior_Click" />
@@ -228,7 +236,7 @@
                                     Página 
                                     <asp:TextBox ID="txtPagina" runat="server" CssClass="form-control form-control-sm d-inline-block text-center" 
                                                Style="width: 60px;" AutoPostBack="true" OnTextChanged="txtPagina_TextChanged" />
-                                    de <asp:Label ID="lblTotalPaginasFooter" runat="server" Text="1" />
+                                    de <asp:Label ID="lblTotalPaginasFooter" runat="server" Text="1" CssClass="fw-bold" />
                                 </span>
                                 <asp:Button ID="btnSiguiente" runat="server" Text="Siguiente" CssClass="btn btn-sm btn-outline-secondary" 
                                           OnClick="btnSiguiente_Click" />
@@ -256,9 +264,9 @@
             background-color: #f8f9fa;
         }
         
-        .badge-stock-ok { background-color: #28a745; }
+        .badge-stock-ok { background-color: #28a745; color: white; }
         .badge-stock-low { background-color: #ffc107; color: #212529; }
-        .badge-stock-empty { background-color: #dc3545; }
+        .badge-stock-empty { background-color: #dc3545; color: white; }
         
         .card-hover {
             transition: transform 0.2s ease;
@@ -271,8 +279,11 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            // Inicializar tooltips
-            $('[data-bs-toggle="tooltip"]').tooltip();
+            // Inicializar tooltips Bootstrap 5
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
             
             // Auto-búsqueda con delay
             $('#<%= txtBuscar.ClientID %>').on('input', function() {

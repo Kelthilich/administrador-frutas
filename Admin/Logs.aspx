@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h2><i class="fas fa-clipboard-list text-warning"></i> Logs del Sistema</h2>
+                        <h2 class="fw-bold"><i class="fas fa-clipboard-list text-warning"></i> Logs del Sistema</h2>
                         <p class="text-muted">Auditoría y seguimiento de actividades</p>
                     </div>
                     <div>
@@ -22,15 +22,15 @@
         <!-- Filtros -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h6 class="m-0"><i class="fas fa-filter"></i> Filtros de Búsqueda</h6>
+                <div class="card shadow">
+                    <div class="card-header bg-white">
+                        <h6 class="m-0 fw-bold"><i class="fas fa-filter"></i> Filtros de Búsqueda</h6>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row g-3">
                             <div class="col-md-2">
-                                <label for="ddlSeveridad">Severidad:</label>
-                                <asp:DropDownList ID="ddlSeveridad" runat="server" CssClass="form-control">
+                                <label for="ddlSeveridad" class="form-label fw-bold">Severidad:</label>
+                                <asp:DropDownList ID="ddlSeveridad" runat="server" CssClass="form-select">
                                     <asp:ListItem Value="" Text="Todas" />
                                     <asp:ListItem Value="INFO" Text="Información" />
                                     <asp:ListItem Value="WARNING" Text="Advertencia" />
@@ -39,31 +39,31 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label for="ddlAccion">Acción:</label>
-                                <asp:DropDownList ID="ddlAccion" runat="server" CssClass="form-control">
+                                <label for="ddlAccion" class="form-label fw-bold">Acción:</label>
+                                <asp:DropDownList ID="ddlAccion" runat="server" CssClass="form-select">
                                     <asp:ListItem Value="" Text="Todas las acciones" />
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label for="txtUsuario">Usuario:</label>
+                                <label for="txtUsuario" class="form-label fw-bold">Usuario:</label>
                                 <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" 
                                            placeholder="Nombre de usuario..." />
                             </div>
                             <div class="col-md-2">
-                                <label for="txtFechaDesde">Desde:</label>
+                                <label for="txtFechaDesde" class="form-label fw-bold">Desde:</label>
                                 <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="form-control" 
                                            TextMode="Date" />
                             </div>
                             <div class="col-md-2">
-                                <label for="txtFechaHasta">Hasta:</label>
+                                <label for="txtFechaHasta" class="form-label fw-bold">Hasta:</label>
                                 <asp:TextBox ID="txtFechaHasta" runat="server" CssClass="form-control" 
                                            TextMode="Date" />
                             </div>
                             <div class="col-md-2">
-                                <label>&nbsp;</label>
-                                <div class="d-flex">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="d-grid gap-2">
                                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" 
-                                              CssClass="btn btn-primary me-2" OnClick="btnBuscar_Click" />
+                                              CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
                                     <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 
                                               CssClass="btn btn-outline-secondary" OnClick="btnLimpiar_Click" />
                                 </div>
@@ -75,36 +75,36 @@
         </div>
 
         <!-- Estadísticas -->
-        <div class="row mb-4">
+        <div class="row mb-4 g-3">
             <div class="col-md-3">
-                <div class="card bg-info text-white">
+                <div class="card bg-info text-white shadow">
                     <div class="card-body text-center">
-                        <h4><asp:Label ID="lblTotalLogs" runat="server" Text="0" /></h4>
-                        <p class="mb-0">Total Logs</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblTotalLogs" runat="server" Text="0" /></h4>
+                        <p class="mb-0"><i class="fas fa-list"></i> Total Logs</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-success text-white">
+                <div class="card bg-success text-white shadow">
                     <div class="card-body text-center">
-                        <h4><asp:Label ID="lblLogsExitosos" runat="server" Text="0" /></h4>
-                        <p class="mb-0">Exitosos</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblLogsExitosos" runat="server" Text="0" /></h4>
+                        <p class="mb-0"><i class="fas fa-check-circle"></i> Exitosos</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-warning text-white">
+                <div class="card bg-warning text-white shadow">
                     <div class="card-body text-center">
-                        <h4><asp:Label ID="lblLogsAdvertencia" runat="server" Text="0" /></h4>
-                        <p class="mb-0">Advertencias</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblLogsAdvertencia" runat="server" Text="0" /></h4>
+                        <p class="mb-0"><i class="fas fa-exclamation-triangle"></i> Advertencias</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card bg-danger text-white">
+                <div class="card bg-danger text-white shadow">
                     <div class="card-body text-center">
-                        <h4><asp:Label ID="lblLogsError" runat="server" Text="0" /></h4>
-                        <p class="mb-0">Errores</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblLogsError" runat="server" Text="0" /></h4>
+                        <p class="mb-0"><i class="fas fa-times-circle"></i> Errores</p>
                     </div>
                 </div>
             </div>
@@ -114,21 +114,21 @@
         <div class="row">
             <div class="col-12">
                 <div class="card shadow">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="m-0 font-weight-bold text-primary">
+                    <div class="card-header d-flex justify-content-between align-items-center bg-white">
+                        <h6 class="m-0 fw-bold text-primary">
                             <i class="fas fa-list"></i> Registro de Actividades
                         </h6>
                         <div>
                             <small class="text-muted">
-                                Página <asp:Label ID="lblPaginaActual" runat="server" Text="1" /> 
-                                de <asp:Label ID="lblTotalPaginas" runat="server" Text="1" /> 
+                                Página <asp:Label ID="lblPaginaActual" runat="server" Text="1" CssClass="fw-bold" /> 
+                                de <asp:Label ID="lblTotalPaginas" runat="server" Text="1" CssClass="fw-bold" /> 
                                 (<asp:Label ID="lblTotalRegistros" runat="server" Text="0" /> registros)
                             </small>
                         </div>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <asp:GridView ID="gvLogs" runat="server" CssClass="table table-hover"
+                            <asp:GridView ID="gvLogs" runat="server" CssClass="table table-hover mb-0"
                                         AutoGenerateColumns="false" DataKeyNames="Id" 
                                         OnRowDataBound="gvLogs_RowDataBound"
                                         EmptyDataText="No se encontraron logs con los criterios especificados">
@@ -136,8 +136,8 @@
                                     <asp:TemplateField HeaderText="Fecha/Hora" ItemStyle-Width="140px">
                                         <ItemTemplate>
                                             <small class="text-muted">
-                                                <%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %><br/>
-                                                <%# ((DateTime)Eval("Fecha")).ToString("HH:mm:ss") %>
+                                                <i class="fas fa-calendar"></i> <%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %><br/>
+                                                <i class="fas fa-clock"></i> <%# ((DateTime)Eval("Fecha")).ToString("HH:mm:ss") %>
                                             </small>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -187,10 +187,10 @@
                                     <asp:TemplateField HeaderText="IP/Info" ItemStyle-Width="120px">
                                         <ItemTemplate>
                                             <small class="text-muted">
-                                                IP: <%# Eval("IP") ?? "N/A" %><br/>
+                                                <i class="fas fa-network-wired"></i> <%# Eval("IP") ?? "N/A" %><br/>
                                                 <%# (bool)Eval("Exitoso") ? 
-                                                    "<span class='text-success'>? Exitoso</span>" : 
-                                                    "<span class='text-danger'>? Fallido</span>" %>
+                                                    "<span class='text-success'><i class='fas fa-check-circle'></i> Exitoso</span>" : 
+                                                    "<span class='text-danger'><i class='fas fa-times-circle'></i> Fallido</span>" %>
                                             </small>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -203,8 +203,9 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <label for="ddlTamañoPagina">Mostrar:</label>
-                                <asp:DropDownList ID="ddlTamañoPagina" runat="server" CssClass="form-control form-control-sm d-inline-block w-auto ms-2" AutoPostBack="true" OnSelectedIndexChanged="ddlTamañoPagina_SelectedIndexChanged">
+                                <label for="ddlTamañoPagina" class="form-label mb-0 me-2">Mostrar:</label>
+                                <asp:DropDownList ID="ddlTamañoPagina" runat="server" CssClass="form-select form-select-sm d-inline-block w-auto" 
+                                                AutoPostBack="true" OnSelectedIndexChanged="ddlTamañoPagina_SelectedIndexChanged">
                                     <asp:ListItem Value="25" Text="25" Selected="True" />
                                     <asp:ListItem Value="50" Text="50" />
                                     <asp:ListItem Value="100" Text="100" />
@@ -222,7 +223,7 @@
                                     Página 
                                     <asp:TextBox ID="txtPagina" runat="server" CssClass="form-control form-control-sm d-inline-block text-center" 
                                                Style="width: 60px;" AutoPostBack="true" OnTextChanged="txtPagina_TextChanged" />
-                                    de <asp:Label ID="lblTotalPaginasFooter" runat="server" Text="1" />
+                                    de <asp:Label ID="lblTotalPaginasFooter" runat="server" Text="1" CssClass="fw-bold" />
                                 </span>
                                 <asp:Button ID="btnSiguiente" runat="server" Text="Siguiente" CssClass="btn btn-sm btn-outline-secondary" 
                                           OnClick="btnSiguiente_Click" />
@@ -236,20 +237,22 @@
         </div>
 
         <!-- Modal para detalles completos -->
-        <div class="modal fade" id="modalDetalles" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
+        <div class="modal fade" id="modalDetalles" tabindex="-1" aria-labelledby="modalDetallesLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Detalles del Log</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="modalDetallesLabel">
+                            <i class="fas fa-info-circle"></i> Detalles del Log
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div id="detalleCompleto"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times"></i> Cerrar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -264,10 +267,10 @@
             line-height: 1.3;
         }
         
-        .badge-severity-info { background-color: #17a2b8; }
+        .badge-severity-info { background-color: #17a2b8; color: white; }
         .badge-severity-warning { background-color: #ffc107; color: #212529; }  
-        .badge-severity-error { background-color: #dc3545; }
-        .badge-severity-critical { background-color: #6f42c1; }
+        .badge-severity-error { background-color: #dc3545; color: white; }
+        .badge-severity-critical { background-color: #6f42c1; color: white; }
         
         .table td {
             vertical-align: middle;
@@ -298,8 +301,10 @@
             var detalle = $('<div/>').html(detalleCompleto).text();
             
             // Mostrar en el modal
-            $('#detalleCompleto').html('<pre>' + detalle + '</pre>');
-            $('#modalDetalles').modal('show');
+            $('#detalleCompleto').html('<pre class="bg-light p-3 rounded">' + detalle + '</pre>');
+            
+            var modal = new bootstrap.Modal(document.getElementById('modalDetalles'));
+            modal.show();
         }
     </script>
 </asp:Content>
