@@ -25,7 +25,7 @@
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col me-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Total Usuarios
                                 </div>
@@ -45,7 +45,7 @@
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col me-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Usuarios Activos
                                 </div>
@@ -65,7 +65,7 @@
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col me-2">
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     Administradores
                                 </div>
@@ -85,7 +85,7 @@
                 <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col me-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Usuarios Bloqueados
                                 </div>
@@ -123,7 +123,7 @@
                                     <asp:TemplateField HeaderText="Usuario">
                                         <ItemTemplate>
                                             <div class="d-flex align-items-center">
-                                                <div class="user-icon mr-3">
+                                                <div class="user-icon me-3">
                                                     <i class="fas fa-user-circle fa-2x text-primary"></i>
                                                 </div>
                                                 <div>
@@ -204,7 +204,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Contraseña Temporal Generada</h5>
-                        <button type="button" class="close" data-dismiss="modal">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
                             <span>&times;</span>
                         </button>
                     </div>
@@ -221,7 +221,7 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Entendido</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
                     </div>
                 </div>
             </div>
@@ -279,7 +279,7 @@
         
         $(document).ready(function() {
             // Inicializar tooltips
-            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-bs-toggle="tooltip"]').tooltip();
         });
     </script>
 </asp:Content>

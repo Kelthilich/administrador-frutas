@@ -60,7 +60,7 @@
                                 <label>&nbsp;</label>
                                 <div class="d-flex">
                                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" 
-                                              CssClass="btn btn-primary mr-2" OnClick="btnBuscar_Click" />
+                                              CssClass="btn btn-primary me-2" OnClick="btnBuscar_Click" />
                                     <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 
                                               CssClass="btn btn-outline-secondary" OnClick="btnLimpiar_Click" />
                                 </div>
@@ -132,7 +132,7 @@
                                 <asp:TemplateField HeaderText="Fruta">
                                     <ItemTemplate>
                                         <div class="d-flex align-items-center">
-                                            <div class="fruit-icon mr-3">
+                                            <div class="fruit-icon me-3">
                                                 <i class="fas fa-apple-alt fa-2x text-success"></i>
                                             </div>
                                             <div>
@@ -210,13 +210,13 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <label for="ddlTamañoPagina">Mostrar:</label>
-                                <asp:DropDownList ID="ddlTamañoPagina" runat="server" CssClass="form-control form-control-sm d-inline-block w-auto ml-2" AutoPostBack="true" OnSelectedIndexChanged="ddlTamañoPagina_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlTamañoPagina" runat="server" CssClass="form-control form-control-sm d-inline-block w-auto ms-2" AutoPostBack="true" OnSelectedIndexChanged="ddlTamañoPagina_SelectedIndexChanged">
                                     <asp:ListItem Value="10" Text="10" />
                                     <asp:ListItem Value="25" Text="25" Selected="True" />
                                     <asp:ListItem Value="50" Text="50" />
                                     <asp:ListItem Value="100" Text="100" />
                                 </asp:DropDownList>
-                                <span class="ml-2">registros por página</span>
+                                <span class="ms-2">registros por página</span>
                             </div>
                             
                             <div>
@@ -272,7 +272,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             // Inicializar tooltips
-            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-bs-toggle="tooltip"]').tooltip();
             
             // Auto-búsqueda con delay
             $('#<%= txtBuscar.ClientID %>').on('input', function() {

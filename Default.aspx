@@ -1,4 +1,4 @@
-ï»¿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="frutas._Default" %>
+<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="frutas._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid mt-4">
@@ -9,20 +9,20 @@
                     <div class="container">
                         <h1 class="display-4">
                             <i class="fas fa-apple-alt"></i> 
-                            Â¡Bienvenido al Sistema de GestiÃ³n de Frutas!
+                            ¡Bienvenido al Sistema de Gestión de Frutas!
                         </h1>
                         <p class="lead">
                             Gestiona tu inventario de frutas de manera eficiente y profesional.
                         </p>
                         <hr class="my-4 bg-white">
                         <p>
-                            Desarrollado con .NET Framework 4.8 siguiendo las mejores prÃ¡cticas de arquitectura en capas.
+                            Desarrollado con .NET Framework 4.8 siguiendo las mejores prácticas de arquitectura en capas.
                         </p>
                         <asp:Panel ID="pnlWelcomeActions" runat="server" Visible="false">
                             <a class="btn btn-light btn-lg" href="~/Frutas/ListaFrutas.aspx" role="button">
                                 <i class="fas fa-list"></i> Ver Inventario
                             </a>
-                            <a class="btn btn-outline-light btn-lg ml-2" href="~/Frutas/AgregarFruta.aspx" role="button">
+                            <a class="btn btn-outline-light btn-lg ms-2" href="~/Frutas/AgregarFruta.aspx" role="button">
                                 <i class="fas fa-plus"></i> Agregar Fruta
                             </a>
                         </asp:Panel>
@@ -37,7 +37,7 @@
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col me-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Total Frutas
                                 </div>
@@ -57,7 +57,7 @@
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col me-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Valor Inventario
                                 </div>
@@ -77,7 +77,7 @@
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col me-2">
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     Stock Total
                                 </div>
@@ -97,7 +97,7 @@
                 <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col me-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Stock Bajo
                                 </div>
@@ -121,7 +121,7 @@
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <i class="fas fa-bolt"></i> Acciones RÃ¡pidas
+                            <i class="fas fa-bolt"></i> Acciones Rápidas
                         </h6>
                     </div>
                     <div class="card-body">
@@ -167,7 +167,7 @@
                         <asp:Repeater ID="rptActividades" runat="server">
                             <ItemTemplate>
                                 <div class="d-flex align-items-center py-2">
-                                    <div class="mr-3">
+                                    <div class="me-3">
                                         <div class="icon-circle bg-<%# GetActivityColor(Eval("Severidad").ToString()) %>">
                                             <i class="fas <%# GetActivityIcon(Eval("Accion").ToString()) %> text-white"></i>
                                         </div>
@@ -199,12 +199,12 @@
 
         <!-- Charts Row -->
         <div class="row">
-            <!-- Stock por CategorÃ­a -->
+            <!-- Stock por Categoría -->
             <div class="col-lg-6 mb-4">
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <i class="fas fa-chart-pie"></i> Stock por CategorÃ­a
+                            <i class="fas fa-chart-pie"></i> Stock por Categoría
                         </h6>
                     </div>
                     <div class="card-body">
@@ -215,7 +215,7 @@
                                         <strong><%# Eval("Categoria") %></strong>
                                         <small class="text-muted">(<%# Eval("CantidadFrutas") %> frutas)</small>
                                     </div>
-                                    <div class="text-right">
+                                    <div class="text-end">
                                         <div class="h6 mb-0 font-weight-bold"><%# Eval("StockTotal") %></div>
                                         <small class="text-success">$<%# Eval("ValorTotal", "{0:N2}") %></small>
                                     </div>
@@ -242,19 +242,19 @@
                             <asp:Repeater ID="rptStockBajo" runat="server">
                                 <ItemTemplate>
                                     <div class="small">
-                                        â€¢ <strong><%# Eval("Nombre") %></strong> - Stock: <%# Eval("Stock") %>
+                                        • <strong><%# Eval("Nombre") %></strong> - Stock: <%# Eval("Stock") %>
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
                         </asp:Panel>
 
-                        <!-- PrÃ³ximas a Vencer -->
+                        <!-- Próximas a Vencer -->
                         <asp:Panel ID="pnlProximasVencer" runat="server" Visible="false" CssClass="alert alert-info">
-                            <h6><i class="fas fa-calendar-exclamation"></i> PrÃ³ximas a Vencer</h6>
+                            <h6><i class="fas fa-calendar-exclamation"></i> Próximas a Vencer</h6>
                             <asp:Repeater ID="rptProximasVencer" runat="server">
                                 <ItemTemplate>
                                     <div class="small">
-                                        â€¢ <strong><%# Eval("Nombre") %></strong> - Vence: <%# Eval("FechaVencimiento", "{0:dd/MM/yyyy}") %>
+                                        • <strong><%# Eval("Nombre") %></strong> - Vence: <%# Eval("FechaVencimiento", "{0:dd/MM/yyyy}") %>
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -276,11 +276,11 @@
                 <div class="col-12">
                     <div class="card shadow">
                         <div class="card-body text-center py-5">
-                            <h3><i class="fas fa-sign-in-alt text-primary"></i> Inicie SesiÃ³n para Acceder</h3>
-                            <p class="lead">Para gestionar el inventario de frutas, debe iniciar sesiÃ³n en el sistema.</p>
+                            <h3><i class="fas fa-sign-in-alt text-primary"></i> Inicie Sesión para Acceder</h3>
+                            <p class="lead">Para gestionar el inventario de frutas, debe iniciar sesión en el sistema.</p>
                             <div class="mt-4">
-                                <a href="~/Account/Login.aspx" class="btn btn-primary btn-lg mr-3">
-                                    <i class="fas fa-sign-in-alt"></i> Iniciar SesiÃ³n
+                                <a href="~/Account/Login.aspx" class="btn btn-primary btn-lg me-3">
+                                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                                 </a>
                                 <a href="~/Account/Register.aspx" class="btn btn-outline-primary btn-lg">
                                     <i class="fas fa-user-plus"></i> Registrarse
@@ -361,7 +361,7 @@
             });
             
             // Tooltip para los iconos
-            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-bs-toggle="tooltip"]').tooltip();
             
             // Auto-refresh cada 5 minutos
             setTimeout(function() {

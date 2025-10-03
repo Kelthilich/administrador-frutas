@@ -12,10 +12,10 @@ namespace frutas
             ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
                 new ScriptResourceDefinition
                 {
-                    Path = "https://code.jquery.com/jquery-3.6.0.min.js",
-                    DebugPath = "https://code.jquery.com/jquery-3.6.0.js",
-                    CdnPath = "https://code.jquery.com/jquery-3.6.0.min.js",
-                    CdnDebugPath = "https://code.jquery.com/jquery-3.6.0.js",
+                    Path = "https://code.jquery.com/jquery-3.7.1.min.js",
+                    DebugPath = "https://code.jquery.com/jquery-3.7.1.js",
+                    CdnPath = "https://code.jquery.com/jquery-3.7.1.min.js",
+                    CdnDebugPath = "https://code.jquery.com/jquery-3.7.1.js",
                     CdnSupportsSecureConnection = true
                 });
         }

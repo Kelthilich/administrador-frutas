@@ -156,7 +156,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control text-right" 
+                                            <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control text-end" 
                                                        placeholder="0.00" TextMode="Number" step="0.01" min="0.01" />
                                         </div>
                                         <asp:RequiredFieldValidator ID="rfvPrecio" runat="server" 
@@ -176,7 +176,7 @@
                                             <i class="fas fa-boxes"></i> Stock Actual *
                                         </label>
                                         <div class="input-group">
-                                            <asp:TextBox ID="txtStock" runat="server" CssClass="form-control text-right" 
+                                            <asp:TextBox ID="txtStock" runat="server" CssClass="form-control text-end" 
                                                        placeholder="0" TextMode="Number" min="0" />
                                             <div class="input-group-append">
                                                 <span class="input-group-text">unidades</span>
@@ -264,7 +264,7 @@
                                                 <i class="fas fa-times"></i> Cancelar
                                             </a>
                                             <asp:Button ID="btnRecargar" runat="server" Text="Recargar" 
-                                                      CssClass="btn btn-outline-info ml-2" OnClick="btnRecargar_Click" 
+                                                      CssClass="btn btn-outline-info ms-2" OnClick="btnRecargar_Click" 
                                                       ToolTip="Recargar datos originales" />
                                         </div>
                                         <div>

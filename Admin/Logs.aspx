@@ -63,7 +63,7 @@
                                 <label>&nbsp;</label>
                                 <div class="d-flex">
                                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" 
-                                              CssClass="btn btn-primary mr-2" OnClick="btnBuscar_Click" />
+                                              CssClass="btn btn-primary me-2" OnClick="btnBuscar_Click" />
                                     <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" 
                                               CssClass="btn btn-outline-secondary" OnClick="btnLimpiar_Click" />
                                 </div>
@@ -153,7 +153,7 @@
                                     <asp:TemplateField HeaderText="Usuario" ItemStyle-Width="120px">
                                         <ItemTemplate>
                                             <div class="d-flex align-items-center">
-                                                <i class="fas fa-user-circle fa-lg text-primary mr-2"></i>
+                                                <i class="fas fa-user-circle fa-lg text-primary me-2"></i>
                                                 <div>
                                                     <strong><%# Eval("Username") ?? "Sistema" %></strong>
                                                     <br/>
@@ -204,13 +204,13 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <label for="ddlTamañoPagina">Mostrar:</label>
-                                <asp:DropDownList ID="ddlTamañoPagina" runat="server" CssClass="form-control form-control-sm d-inline-block w-auto ml-2" AutoPostBack="true" OnSelectedIndexChanged="ddlTamañoPagina_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlTamañoPagina" runat="server" CssClass="form-control form-control-sm d-inline-block w-auto ms-2" AutoPostBack="true" OnSelectedIndexChanged="ddlTamañoPagina_SelectedIndexChanged">
                                     <asp:ListItem Value="25" Text="25" Selected="True" />
                                     <asp:ListItem Value="50" Text="50" />
                                     <asp:ListItem Value="100" Text="100" />
                                     <asp:ListItem Value="200" Text="200" />
                                 </asp:DropDownList>
-                                <span class="ml-2">registros por página</span>
+                                <span class="ms-2">registros por página</span>
                             </div>
                             
                             <div>
@@ -241,7 +241,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Detalles del Log</h5>
-                        <button type="button" class="close" data-dismiss="modal">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
                             <span>&times;</span>
                         </button>
                     </div>
@@ -249,7 +249,7 @@
                         <div id="detalleCompleto"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>

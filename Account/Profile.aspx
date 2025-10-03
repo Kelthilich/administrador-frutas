@@ -84,10 +84,10 @@
                         <div class="form-group">
                             <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cambios" 
                                       CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-                            <a href="ChangePassword.aspx" class="btn btn-outline-warning ml-2">
+                            <a href="ChangePassword.aspx" class="btn btn-outline-warning ms-2">
                                 <i class="fas fa-key"></i> Cambiar Contraseña
                             </a>
-                            <a href="~/Default.aspx" class="btn btn-outline-secondary ml-2">
+                            <a href="~/Default.aspx" class="btn btn-outline-secondary ms-2">
                                 <i class="fas fa-arrow-left"></i> Volver al Dashboard
                             </a>
                         </div>

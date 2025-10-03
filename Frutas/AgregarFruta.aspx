@@ -78,7 +78,7 @@
                                             <asp:ListItem Value="Otra" Text="Otra" />
                                         </asp:DropDownList>
                                         <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modalCategoria">
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalCategoria">
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         </div>
@@ -125,7 +125,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">$</span>
                                         </div>
-                                        <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control text-right" 
+                                        <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control text-end" 
                                                    placeholder="0.00" TextMode="Number" step="0.01" min="0.01" />
                                     </div>
                                     <asp:RequiredFieldValidator ID="rfvPrecio" runat="server" 
@@ -145,7 +145,7 @@
                                         <i class="fas fa-boxes"></i> Stock Inicial *
                                     </label>
                                     <div class="input-group">
-                                        <asp:TextBox ID="txtStock" runat="server" CssClass="form-control text-right" 
+                                        <asp:TextBox ID="txtStock" runat="server" CssClass="form-control text-end" 
                                                    placeholder="0" TextMode="Number" min="0" />
                                         <div class="input-group-append">
                                             <span class="input-group-text">unidades</span>
@@ -220,7 +220,7 @@
                                             <span class="badge badge-info" id="previewPais">País</span>
                                             <span class="badge badge-success" id="previewOrganica" style="display:none;">Orgánica</span>
                                         </div>
-                                        <div class="col-md-4 text-right">
+                                        <div class="col-md-4 text-end">
                                             <h5 class="text-success mb-1">$<span id="previewPrecio">0.00</span></h5>
                                             <small class="text-muted">Stock: <span id="previewStock">0</span> unidades</small>
                                             <br>
@@ -258,7 +258,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Agregar Nueva Categoría</h5>
-                    <button type="button" class="close" data-dismiss="modal">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
                         <span>&times;</span>
                     </button>
                 </div>
@@ -270,7 +270,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="agregarCategoria()">Agregar</button>
                 </div>
             </div>

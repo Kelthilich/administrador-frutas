@@ -100,7 +100,7 @@
                         <div class="form-group form-check">
                             <asp:CheckBox ID="chkTerminos" runat="server" CssClass="form-check-input" />
                             <label class="form-check-label" for="chkTerminos">
-                                Acepto los <a href="#" data-toggle="modal" data-target="#modalTerminos">términos y condiciones</a> *
+                                Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerminos">términos y condiciones</a> *
                             </label>
                             <asp:CustomValidator ID="cvTerminos" runat="server"
                                                ErrorMessage="Debe aceptar los términos y condiciones"
@@ -140,7 +140,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Términos y Condiciones</h5>
-                    <button type="button" class="close" data-dismiss="modal">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
                         <span>&times;</span>
                     </button>
                 </div>
@@ -158,7 +158,7 @@
                     <p>Usted es responsable de mantener la confidencialidad de su cuenta y contraseña.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

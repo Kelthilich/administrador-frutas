@@ -210,8 +210,8 @@ BEGIN
     ) VALUES (
         'admin',
         'admin@frutas.com',
-        'YJLx4Vd7aK4h5z3xHqF8nvULdmUlA7gFoOW3Q7WnCKM=', -- Password: Admin123!
-        'tQ7WlJZp4D8vX9mR2hL3nF6sK1pN5qY7uE4rT8oA6cB=',
+        'iMRMzknmilU8Mi5BwOy4BtilxZZf7USDesUx4+e+3Ks=', -- Password: Admin123!
+        'CqqKlamn8DoJZ11rMh9aHqznBmiqKfvLU/xjGsqblVs=',
         'Administrador del Sistema',
         'Administrador',
         GETDATE(),
